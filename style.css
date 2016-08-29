@@ -1,10 +1,10 @@
 /*
-Theme Name: Nisarg
-Theme URI: http://falgunidesai.com/work/nisarg-a-wordpress-theme/
-Author: Falguni Desai
-Author URI: http://falgunidesai.com/
-Description: Nisarg is a new fully responsive and translation ready theme that allows you to create stunning blogs and websites. Theme is well suited for travel, photography, recipe, design, art, personal and any other creative websites and blogs. The theme is developed using Bootstrap 3 that makes it mobile and tablets friendly.  It has various options in WordPress Customizer to change look of the theme. Theme customizer can be used to add your own header image of flexible height, background image, to set background color, header text color and accent color(Supports seven different accent colors).  Theme supports eight post formats, such as: Video, Image, Aside, Status, Audio, Quote, Link and Gallery. 
-Version: 1.2.6
+Theme Name: Micz.it (v4)
+Theme URI: http://micz.it/
+Author: Mic (Original work from Theme Nisarg by Falguni Desai)
+Author URI: http://micz.it/
+Description: The Mic's theme (v4). Original work from Theme Nisarg by Falguni Desai (http://falgunidesai.com/work/nisarg-a-wordpress-theme/).
+Version: 4.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: pink,orange,blue,green,yellow, gray, white,black,light,two-columns, right-sidebar, responsive-layout, theme-options, custom-background, custom-header, custom-colors, custom-menu, featured-images,  post-formats, sticky-post, translation-ready, rtl-language-support,threaded-comments
@@ -25,7 +25,7 @@ This theme is licensed under the GPL.
  *     3.2 Site Header
  * 4.0 Content
  *     4.1 Post-Content
- *     4.2 Page and Post Navigation links 
+ *     4.2 Page and Post Navigation links
  *     4.3 Post Formats
  *     4.4 Gallery
  *     4.5 Post-Comments
@@ -33,7 +33,7 @@ This theme is licensed under the GPL.
  * 6.0 Site Footer
  * 7.0 Media Queries
  * 8.0 Print
- *     
+ *
 **/
 
 /**
@@ -116,7 +116,7 @@ blockquote p{
 }
 
 code {
-    white-space: normal;   
+    white-space: normal;
     color: #666;
 }
 
@@ -143,7 +143,7 @@ table,th,td{
 th, td {
   padding: 0.7em;
   text-align: left;
- 
+
 }
 
 tbody tr:nth-child(odd) {
@@ -411,7 +411,7 @@ a img.aligncenter {
     padding: 0 4px 5px;
 }
 
-.size-auto, 
+.size-auto,
 .size-full,
 .size-large,
 .size-medium,
@@ -432,7 +432,7 @@ img[class*="wp-image-"] {
     max-width: 100%;
     height: auto; /* Make sure images with WordPress-added height and width attributes are scaled correctly */
 }
- 
+
 .entry-content img,
 img.size-full {
     max-width: 100%;
@@ -501,16 +501,16 @@ img.wp-post-image{
 
 .admin-bar .navbar-fixed-top {
   top: 32px; }
-  
+
 @media (max-width: 782px) {
     .admin-bar .navbar-fixed-top{
     top: 46px;
     position: absolute;
   }
-  
+
 }
 
-.navbar{ 
+.navbar{
     font-size: 14px;
     font-weight: 400;
     font-style: normal;
@@ -534,7 +534,7 @@ img.wp-post-image{
     background-color: #fff;
     border-color: #fff;
 }
-.navbar-default { 
+.navbar-default {
     background-color: #ffffff;
     box-shadow: 0px 1px 1px rgba(100,100,0, 0.1);
 }
@@ -644,14 +644,14 @@ color: #000000;
     -webkit-transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
-    text-align: center;  
+    text-align: center;
 }
 
 .site-title {
     color: #fff;
     font-size: 3.5em;
     font-weight: 700;
-    text-transform: uppercase; 
+    text-transform: uppercase;
     letter-spacing: 10px;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -673,7 +673,7 @@ color: #000000;
     font-weight: 400;
     padding: 0.2em 0em;
     letter-spacing: 5px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     margin-top: 0px;
     margin-bottom: 0px;
     text-shadow:rgba(255,255,255,.1) -1px -1px 1px,rgba(0,0,0,.5) 1px 1px 1px;
@@ -699,7 +699,7 @@ color: #000000;
  */
 
  .sticky {
-    
+
 }
 
 .sticky-post{
@@ -716,7 +716,7 @@ color: #000000;
     background-color: white;
     clear: both;
     margin-bottom: 2em;
-    
+
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
     -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
@@ -741,7 +741,7 @@ color: #000000;
     overflow: hidden;
 }
 
-.post-comments{  
+.post-comments{
     border-radius: 0px;
     border: none;
     padding: 2em;
@@ -909,8 +909,8 @@ color: #000000;
     text-align: left;
 }
 
-/* 
-* 4.2 Page and Post Navigation links 
+/*
+* 4.2 Page and Post Navigation links
 * --------------------------------------------------------------
 */
 
@@ -920,7 +920,7 @@ color: #000000;
     margin: 0 0 1.5em;
 }
 
-.nav-links{ 
+.nav-links{
     background: #fff;
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.15);
     padding: 15px;
@@ -933,7 +933,7 @@ color: #000000;
 }
 
 .nav-previous,.nav-next,.next-post,.prev-post{
-    background: #fff;   
+    background: #fff;
     color: #727272;
     font-weight: 400;
     text-transform: capitalize;
@@ -965,15 +965,15 @@ color: #000000;
 /* Post Format = Status----------------------------------------------- */
 
 .blog .format-status .entry-content,
-.archive .format-staus .entry-content{ 
-    background-color: #CFD8DC;  
+.archive .format-staus .entry-content{
+    background-color: #CFD8DC;
     padding-top: 2em;
     font-size: 16px;
 }
 
 .blog .format-status .entry-footer,
-.archive .format-staus .entry-footer{ 
-    background-color: #CFD8DC;  
+.archive .format-staus .entry-footer{
+    background-color: #CFD8DC;
 }
 
 /*
@@ -1110,7 +1110,7 @@ color: #000000;
 }
 
 .bypostauthor {
-    
+
 }
 /**
  * 5.0 Sidebar - Widgets
@@ -1295,7 +1295,7 @@ color: #000000;
     h6{
         font-size: 12px;
     }
-    
+
     blockquote{
         margin-left: 0.3em;
     }
@@ -1311,7 +1311,7 @@ color: #000000;
     .sticky-post{
         padding: 3px 15px;
     }
-    
+
     .entry-header,.entry-content,.entry-summary,.entry-footer{
         padding: 1em 1.5em;
     }
@@ -1374,7 +1374,7 @@ color: #000000;
 
     .site-title {
         font-size: 2.1em;
-        letter-spacing: 10px;  
+        letter-spacing: 10px;
     }
 
     .site-title::after{
@@ -1388,7 +1388,7 @@ color: #000000;
 
     .site-description {
         font-size: 14px;
-        letter-spacing: 1px; 
+        letter-spacing: 1px;
     }
 
     .site-footer{
@@ -1396,7 +1396,7 @@ color: #000000;
     }
     .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
         border-top: none;
-    }    
+    }
 }
 @media (max-width: 359px) {
     .site-header{
@@ -1408,7 +1408,7 @@ color: #000000;
 
     .site-title {
         font-size: 2em;
-        letter-spacing: 2px;  
+        letter-spacing: 2px;
         margin-top: 5px;
         margin-bottom: 3px;
     }
@@ -1439,7 +1439,7 @@ color: #000000;
         font-size: 10pt;
     }
 
-    
+
     .site {
         max-width: 98%;
     }
@@ -1534,4 +1534,82 @@ color: #000000;
     }
 }
 
+/*
+ * Custom micz.it styles
+ * */
+.miczit-right{text-align:right;}
+.entry-footer{font-size: 14px;padding-bottom:0.8em;}
+.entry-footer .miczit-hr::after{
+    content:"";
+    height: 1px;
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    background: #009688;
+    background: -webkit-radial-gradient(#009688,white); /* Safari 5.1 to 6.0 */
+  	background: -o-radial-gradient(#009688,white); /* For Opera 11.6 to 12.0 */
+  	background: -moz-radial-gradient(#009688,white); /* For Firefox 3.6 to 15 */
+  	background: radial-gradient(#009688,white); /* Standard syntax */
+    opacity: 0.8;
+}
 
+.navbar-brand{padding-left:43px;background:url("http://en.gravatar.com/avatar/6072f5dbcf8438bf469e4270a22723ca?s=32&r=any") no-repeat scroll 0 transparent;}
+
+big.quote{
+font-family:Georgia,serif;
+font-size:60px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:bold;
+line-height:1px;
+opacity:0.4;
+vertical-align:-23px;
+}
+big.quote2{
+font-family:Georgia,serif;
+font-size:60px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:bold;
+line-height:1px;
+margin-top:20px;
+opacity:0.4;
+vertical-align:-40px;
+}
+span.quote-long{
+line-height:18px;
+margin:0 0 0 -7px;
+}
+span.quote-medium{
+font-size:20px;
+line-height:20px;
+margin:0 0 0 -10px;
+}
+span.quote-short{
+font-size:22px;
+font-weight:bold;
+line-height:24px;
+margin:0 0 0 -14px;
+}
+
+article.tag-citazioni {
+    background: white;
+    background: -webkit-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* Safari 5.1 to 6.0 */
+  	background: -o-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* For Opera 11.6 to 12.0 */
+  	background: -moz-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* For Firefox 3.6 to 15 */
+  	background: linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* Standard syntax */
+}
+
+article.tag-link {
+    background: white;
+    background: -webkit-linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* Safari 5.1 to 6.0 */
+  	background: -o-linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* For Opera 11.6 to 12.0 */
+  	background: -moz-linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* For Firefox 3.6 to 15 */
+  	background: linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* Standard syntax */
+}
+
+article.tag-link a, article.tag-link a:hover{text-decoration: underline;}

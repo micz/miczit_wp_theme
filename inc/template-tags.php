@@ -8,6 +8,50 @@
  */
 
 
+if ( ! function_exists( 'miczit_posts_navigation' ) ) :
+/**
+ * Display navigation to next/previous set of posts when applicable.
+ *
+ * @todo Remove this function when WordPress 4.3 is released.
+ */
+function miczit_posts_navigation() {
+	// Don't print empty markup if there's only one page.
+	if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
+		return;
+	}
+	?>
+	<nav class="navigation posts-navigation" role="navigation">
+		<h2 class="screen-reader-text"><?php esc_html_e( 'Posts navigation', 'nisarg' ); ?></h2>
+		<div class="nav-links">
+
+			<div class="row">
+				<?php if ( get_next_posts_link() ) { ?>
+				<div class="col-md-6 prev-post">
+				<?php next_posts_link( '<i class="fa fa-angle-double-left"></i> '.__( 'OLDER POSTS', 'nisarg' ) ); ?>
+				</div>
+				<?php }	else{
+					echo '<div class="col-md-6">';
+					echo '<p> </p>';
+					echo '</div>';
+				} ?>
+
+				<?php if ( get_previous_posts_link() ) { ?>
+				<div class="col-md-6 next-post">
+				<?php previous_posts_link(__( 'NEWER POSTS', 'nisarg' ).' <i class="fa fa-angle-double-right"></i>' ); ?>
+				</div>
+				<?php } else {
+					echo '<div class="col-md-6">';
+					echo '<p> </p>';
+					echo '</div>';
+				} ?>
+
+				</div>
+		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+	<?php
+}
+endif;
+
 if ( ! function_exists( 'nisarg_posts_navigation' ) ) :
 /**
  * Display navigation to next/previous set of posts when applicable.
@@ -138,6 +182,76 @@ $entry_meta = '<i class="fa fa-calendar-o"></i> <a href="%1$s" title="%2$s" rel=
 		printf(' <i class="fa fa-comments-o"></i><span class="screen-reader-text">%1$s </span> ',_x( 'Comments', 'Used before post author name.', 'nisarg' ));
 		comments_popup_link( __('0 Comment','nisarg'), __('1 comment','nisarg'), __('% comments','nisarg'), 'comments-link', '');
 	}
+}
+endif;
+
+if ( ! function_exists( 'miczit_posted_on' ) ) :
+/**
+ * Prints HTML with meta information for the current post-date/time and author.
+ */
+function miczit_posted_on() {
+
+$viewbyauthor_text = __( 'View all posts by', 'nisarg' ).' %s';
+
+$entry_meta = '<i class="fa fa-calendar-o"></i> <a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s" pubdate>%4$s </time></a><span class="byline"><span class="sep"></span></span>';
+
+	$entry_meta = sprintf($entry_meta,
+		esc_url( get_permalink() ),
+        esc_attr( get_the_time() ),
+        esc_attr( get_the_date( 'c' ) ),
+        esc_html( get_the_date() ),
+        esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+        esc_attr( sprintf( $viewbyauthor_text, get_the_author() ) ),
+        esc_html( get_the_author() ));
+
+    print $entry_meta;
+
+	/*if(comments_open()){
+		printf(' <i class="fa fa-comments-o"></i><span class="screen-reader-text">%1$s </span> ',_x( 'Comments', 'Used before post author name.', 'nisarg' ));
+		comments_popup_link( __('0 Comment','nisarg'), __('1 comment','nisarg'), __('% comments','nisarg'), 'comments-link', '');
+	}*/
+}
+endif;
+
+if ( ! function_exists( 'miczit_entry_footer' ) ) :
+/**
+ * Prints HTML with meta information for the categories, tags and comments.
+ */
+function miczit_entry_footer() {
+
+	/*if(is_single())
+		echo '<hr>';*/
+
+ 	//if(!is_home() && !is_search() && !is_archive()){
+
+			if ( 'post' == get_post_type() ) {
+				/* translators: used between list items, there is a space after the comma */
+				$categories_list = get_the_category_list( esc_html__( ', ', 'nisarg' ) );
+				echo '<div class="miczit-hr"></div><div class="row">';
+				if ( $categories_list && nisarg_categorized_blog() ) {
+					printf( '<div class="col-md-2 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i>
+		 ' . esc_html__( '%1$s', 'nisarg' ) . '</span></div>', $categories_list ); // WPCS: XSS OK.
+				}
+				else{
+					echo '<div class="col-md-5 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i></span></div>';
+				}
+
+
+				$tags_list = get_the_tag_list( '', esc_html__( ', ', 'nisarg' ) );
+				if ( $tags_list ) {
+					printf( '<div class="col-md-5 tags"><span class="tags-links"><i class="fa fa-tags"></i>' . esc_html__( ' %1$s', 'nisarg' ) . '</span></div>', $tags_list ); // WPCS: XSS OK.
+				}
+
+				echo '<div class="col-md-5 miczit-right">';
+				miczit_posted_on();
+				echo '</div>';
+
+				echo '</div>';
+			}
+	//}
+
+	edit_post_link( esc_html__( 'Edit This Post', 'nisarg' ), '<br><span>', '</span>' );
+
 }
 endif;
 

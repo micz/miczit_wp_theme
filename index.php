@@ -38,19 +38,19 @@ get_header(); ?>
 									 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
 									 */
 									$post_display_option = get_theme_mod('post_display_option','post-excerpt');
-									
+
 		    						if($post_display_option == 'post-excerpt'){
 		        						get_template_part( 'template-parts/content','excerpt');
 		        					}
 		        					else{
 		        						get_template_part( 'template-parts/content', get_post_format() );
 		        					}
-									
+
 								?>
 
 							<?php endwhile; ?>
 
-							<?php nisarg_posts_navigation(); ?>
+							<?php miczit_posts_navigation(); ?>
 
 						<?php else : ?>
 
@@ -62,10 +62,10 @@ get_header(); ?>
 				</div><!-- #primary -->
 
 				<?php get_sidebar('sidebar-1'); ?>
-			    </div><!--row-->      
+			    </div><!--row-->
 
 		</div><!--.container-->
 		<?php get_footer(); ?>
 
-			
-    
+
+

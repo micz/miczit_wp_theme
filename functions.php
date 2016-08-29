@@ -50,8 +50,8 @@ function nisarg_setup() {
 	add_theme_support( 'post-thumbnails' );
 	set_post_thumbnail_size( 604, 270);
 	add_image_size( 'nisarg-full-width', 1038, 576, true );
-	
-	
+
+
 	function register_nisarg_menus() {
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
@@ -60,8 +60,8 @@ function nisarg_setup() {
 	}
 
 	add_action( 'init', 'register_nisarg_menus' );
-	
-	
+
+
 	/*
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.
@@ -74,7 +74,7 @@ function nisarg_setup() {
 		'caption',
 	) );
 
-	
+
 	/*
 	 * Enable support for Post Formats.
 	 * See http://codex.wordpress.org/Post_Formats
@@ -88,7 +88,7 @@ function nisarg_setup() {
 		'gallery'
 	) );
 
-	
+
 	// Set up the WordPress core custom background feature.
 	add_theme_support( 'custom-background', apply_filters( 'nisarg_custom_background_args', array(
 		'default-color' => 'f5f5f5',
@@ -138,13 +138,13 @@ function nisarg_scripts() {
 
 	wp_enqueue_style( 'nisarg-style', get_stylesheet_uri() );
 
-	wp_enqueue_style( 'font-awesome', get_template_directory_uri().'/font-awesome/css/font-awesome.min.css' );   
-	
-    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.js',array('jquery'),'',true);  
+	wp_enqueue_style( 'font-awesome', get_template_directory_uri().'/font-awesome/css/font-awesome.min.css' );
+
+    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.js',array('jquery'),'',true);
 
 	wp_enqueue_script( 'nisarg-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array('jquery'), '20130115', true );
 
-	wp_enqueue_script( 'nisarg-js', get_template_directory_uri() . '/js/nisarg.js',array('jquery'),'',true);  	
+	wp_enqueue_script( 'nisarg-js', get_template_directory_uri() . '/js/nisarg.js',array('jquery'),'',true);
 
 	wp_enqueue_script( 'html5shiv', get_template_directory_uri().'/js/html5shiv.js', array(),'3.7.3',false );
 	wp_script_add_data( 'html5shiv', 'conditional', 'lt IE 9' );
@@ -194,7 +194,7 @@ function nisarg_google_fonts() {
 	wp_register_style( 'nisarggooglefonts', add_query_arg( $query_args, "//fonts.googleapis.com/css" ), array(), null );
 	wp_enqueue_style( 'nisarggooglefonts');
 }
-            
+
 add_action('wp_enqueue_scripts', 'nisarg_google_fonts');
 
 
@@ -225,4 +225,7 @@ function nisarg_get_link_url() {
 	return ( $nisarg_has_url ) ? $nisarg_has_url : apply_filters( 'the_permalink', get_permalink() );
 }
 
-
+function miczit_favicon_link() {
+    echo '<link href="http://en.gravatar.com/avatar/6072f5dbcf8438bf469e4270a22723ca?s=16&r=any" rel="icon"/>'."\n";
+}
+add_action('wp_head', 'miczit_favicon_link');

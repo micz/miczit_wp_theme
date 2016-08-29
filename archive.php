@@ -2,7 +2,7 @@
 /**
  * The template for displaying archive pages.
  *
- * 
+ *
  *
  * @package Nisarg
  */
@@ -10,12 +10,12 @@
 get_header(); ?>
 		<div class="container">
     		<div class="row">
-				
+
 
 					<?php if ( have_posts() ) : ?>
 
 						<header class="archive-page-header">
-							<?php								
+							<?php
 								the_archive_title ( '<h3 class="archive-page-title">'.__( 'Browsed by', 'nisarg' ).'<br>', '</h3>'  );
 								the_archive_description ( '<div class="taxonomy-description">', '</div>' )
 							?>
@@ -40,7 +40,7 @@ get_header(); ?>
 
 						<?php endwhile; ?>
 
-						<?php nisarg_posts_navigation(); ?>
+						<?php miczit_posts_navigation(); ?>
 
 					<?php else : ?>
 
@@ -51,8 +51,8 @@ get_header(); ?>
 					</main><!-- #main -->
 				</div><!-- #primary -->
 
-				<?php get_sidebar('sidebar-1'); ?>			
+				<?php get_sidebar('sidebar-1'); ?>
 
-			</div> <!--.row-->            
+			</div> <!--.row-->
         </div><!--.container-->
         <?php get_footer(); ?>

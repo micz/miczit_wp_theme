@@ -8,7 +8,7 @@
 get_header(); ?>
 		<div class="container">
             <div class="row">
-				
+
 
 					<?php if ( have_posts() ) : ?>
 
@@ -33,7 +33,7 @@ get_header(); ?>
 
 						<?php endwhile; ?>
 
-						<?php nisarg_posts_navigation(); ?>
+						<?php miczit_posts_navigation(); ?>
 
 						</main><!-- #main -->
 					</section><!-- #primary -->
@@ -51,11 +51,11 @@ get_header(); ?>
 
 					<?php endif; ?>
 
-						
+
 
 
 				<?php get_sidebar('sidebar-1'); ?>
 
-			</div> <!--.row-->            
+			</div> <!--.row-->
         </div><!--.container-->
         <?php get_footer(); ?>

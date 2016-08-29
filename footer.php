@@ -10,23 +10,29 @@
 ?>
 
 	</div><!-- #content -->
-	
+
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="row site-info">
-			<?php echo '&copy; '.date("Y"); ?> 
+			<?/*?><a href="http://rss.micz.it/micz">feed rss</a>
+			<span class="sep"> | </span><?*/?>
+			<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/2.5/it/">cc</a>
 			<span class="sep"> | </span>
-			<?php printf( esc_html__( 'Proudly Powered by ','nisarg')); ?>
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'nisarg' ) ); ?>">WordPress</a>
-			<span class="sep"> | </span>
-
-			<?php 
-			$nisarg_theme_author_str =  '<a href="'.esc_url('http://www.falgunidesai.com/').'" rel="designer">Falguni Desai</a>'; 
-			printf( esc_html__( 'Theme: %1$s by %2$s.', 'nisarg' ), 'Nisarg',$nisarg_theme_author_str); 
-			?>
-
+			<a target="_blank" href="http://twitter.com/micz">@micz</a>
+			<?/*?><br/>
+			<a href="mailto:m@micz.it">m@micz.it</a><?*/?>
+<br/>proudly powered by <a target="_blank" href="http://wordpress.org/">WordPress</a><br/><img alt="wordpress.org" title="wordpress.org" src="<?=  get_stylesheet_directory_uri().'/images/wordpress.png'; ?>" border="0"/>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 <?php wp_footer(); ?>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-3931804-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
 </body>
 </html>
