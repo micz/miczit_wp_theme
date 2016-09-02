@@ -1566,6 +1566,9 @@ font-weight:bold;
 line-height:1px;
 opacity:0.4;
 vertical-align:-23px;
+position:absolute;
+left:30px;
+top:55px;
 }
 big.quote2{
 font-family:Georgia,serif;
@@ -1587,29 +1590,39 @@ margin:0 0 0 -7px;
 span.quote-medium{
 font-size:20px;
 line-height:20px;
-margin:0 0 0 -10px;
+margin:0 0 0 -7px;
 }
 span.quote-short{
 font-size:22px;
 font-weight:bold;
 line-height:24px;
-margin:0 0 0 -14px;
+margin:0 0 0 -7px;
 }
 
 article.tag-citazioni {
-    background: white;
-    background: -webkit-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* Safari 5.1 to 6.0 */
-  	background: -o-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* For Opera 11.6 to 12.0 */
-  	background: -moz-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* For Firefox 3.6 to 15 */
-  	background: linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* Standard syntax */
+position:relative;
+background:white;
+background:-webkit-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* Safari 5.1 to 6.0 */
+background:-o-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* For Opera 11.6 to 12.0 */
+background:-moz-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* For Firefox 3.6 to 15 */
+background:linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* Standard syntax */
 }
 
 article.tag-link {
-    background: white;
-    background: -webkit-linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* Safari 5.1 to 6.0 */
-  	background: -o-linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* For Opera 11.6 to 12.0 */
-  	background: -moz-linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* For Firefox 3.6 to 15 */
-  	background: linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* Standard syntax */
+background:white;
+background:-webkit-linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* Safari 5.1 to 6.0 */
+background:-o-linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* For Opera 11.6 to 12.0 */
+background:-moz-linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* For Firefox 3.6 to 15 */
+background:linear-gradient(rgba(150, 138, 0, 0.14), white 62%); /* Standard syntax */
 }
 
-article.tag-link a, article.tag-link a:hover{text-decoration: underline;}
+article.tag-link h3{font-size:20px;margin-top:0px;}
+article.tag-link a, article.tag-link a:hover{text-decoration:underline;}
+
+div.miczit_lang{
+font-size:14px;
+position:absolute;
+right:21px;
+}
+
+div.miczit_lang img{margin-bottom:3px;}

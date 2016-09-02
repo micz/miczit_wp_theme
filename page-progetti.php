@@ -26,7 +26,7 @@ get_header(); ?>
 					</main><!-- #main -->
 				</div><!-- #primary -->
 
-				<?php get_sidebar('sidebar-progetti'); ?>
+				<?php get_sidebar('progetti'); ?>
 
 			</div> <!--.row-->
         </div><!--.container-->

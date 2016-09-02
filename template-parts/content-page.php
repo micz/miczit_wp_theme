@@ -8,7 +8,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('post-content'); ?>>
-
+	<?php miczit_get_i18n_page($post->ID); ?>
 	<?php nisarg_featured_image_disaplay(); ?>
 
 	<header class="entry-header">
@@ -18,7 +18,7 @@
 		<div class="entry-meta"></div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 
-	
+
 	<div class="entry-content">
 		<?php the_content(); ?>
 		<?php

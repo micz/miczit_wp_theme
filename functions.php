@@ -127,6 +127,15 @@ function nisarg_widgets_init() {
 		'before_title'  => '<h4 class="widget-title">',
 		'after_title'   => '</h4>',
 	) );
+	register_sidebar( array(
+		'name'          => esc_html__( 'Progetti', 'nisarg' ),
+		'id'            => 'progetti',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
+	) );
 }
 add_action( 'widgets_init', 'nisarg_widgets_init' );
 
@@ -229,3 +238,17 @@ function miczit_favicon_link() {
     echo '<link href="http://en.gravatar.com/avatar/6072f5dbcf8438bf469e4270a22723ca?s=16&r=any" rel="icon"/>'."\n";
 }
 add_action('wp_head', 'miczit_favicon_link');
+
+function miczit_get_i18n_page($id){
+	$before='<div class="miczit_lang">';
+	$after='</div>';
+	$en_lang=get_post_meta($id,'en',true);
+	if($en_lang){
+		echo $before.'<a href="'.$en_lang.'">Read this content in English <img alt="" title="English" src="'.get_stylesheet_directory_uri().'/images/uk-icon.png" border="0"/></a>'.$after;
+	}else{
+		$it_lang=get_post_meta($id,'it',true);
+		if($it_lang){
+			echo $before.'<a href="'.$it_lang.'">Leggi questo contenuto in Italiano <img alt="" title="Italiano" src="'.get_stylesheet_directory_uri().'/images/italy-icon.png" border="0"/></a>'.$after;
+		}
+	}
+}

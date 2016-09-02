@@ -4,14 +4,11 @@
  *
  * If no active widgets in sidebar, let's hide it completely.
  *
- * @package WordPress
- * @subpackage Twenty_Twelve
- * @since Twenty Twelve 1.0
  */
 ?>
 
-	<?php if ( is_active_sidebar( 'sidebar-progetti' ) ) : ?>
-		<div id="secondary" class="widget-area" role="complementary">
-			<?php dynamic_sidebar( 'sidebar-progetti' ); ?>
+	<?php if ( is_active_sidebar( 'progetti' ) ) : ?>
+		<div id="secondary" class="col-md-3 sidebar widget-area" role="complementary">
+			<?php dynamic_sidebar( 'progetti' ); ?>
 		</div><!-- #secondary -->
 	<?php endif; ?>
