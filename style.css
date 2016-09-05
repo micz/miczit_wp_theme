@@ -52,7 +52,7 @@ input,
 select,
 textarea {
     color: #424242;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     font-family: 'Source Sans Pro', sans-serif;
 }
@@ -637,7 +637,7 @@ color: #000000;
 
 .site-header .site-branding {
     margin: 0;
-   position: absolute;
+    position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
@@ -1626,3 +1626,5 @@ right:21px;
 }
 
 div.miczit_lang img{margin-bottom:3px;}
+.entry-content a,.entry-content a:hover {text-decoration:underline;}
+article.tag-link .entry-footer a,article.tag-link .entry-footer a:hover {text-decoration:none;}

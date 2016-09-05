@@ -15,9 +15,9 @@ get_header(); ?>
 				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php get_template_part( 'template-parts/content',get_post_format()); ?>
-				</main><!-- #main -->				
+				</main><!-- #main -->
 
-				<div class="post-navigation">				
+				<div class="post-navigation">
 					<?php nisarg_post_navigation(); ?>
 				</div>
 
@@ -32,14 +32,14 @@ get_header(); ?>
 							_e('Comments are closed.','nisarg');
 
 					?>
-				</div>			
+				</div>
 
 				<?php endwhile; // End of the loop. ?>
 
-				
+
 			</div><!-- #primary -->
 
 			<?php get_sidebar('sidebar-1'); ?>
-		</div> <!--.row-->            
+		</div> <!--.row-->
     </div><!--.container-->
     <?php get_footer(); ?>

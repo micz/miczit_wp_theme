@@ -88,7 +88,7 @@ function nisarg_customize_register( $wp_customize ) {
         'sanitize_callback' => 'nisarg_sanitize_post_display_option',
 		'transport'         => 'refresh'
     ));
- 
+
     $wp_customize->add_control('post_display_types', array(
         'label'      => __('How would you like to dipaly a post on post listing page?', 'nisarg'),
         'section'    => 'post_options',
@@ -96,10 +96,49 @@ function nisarg_customize_register( $wp_customize ) {
         'type'       => 'radio',
         'choices'    => array(
             'post-excerpt' => __('Post excerpt','nisarg'),
-            'full-post' => __('Full post','nisarg'),            
+            'full-post' => __('Full post','nisarg'),
         ),
     ));
-	
+
+    //==================== micz.it
+    //Blog title header options
+	$wp_customize->add_section(
+	    'header_title_options',
+	    array(
+	        'title'     => __('Header Title Options','nisarg'),
+	        'priority'  => 60
+	    )
+	);
+
+	$wp_customize->add_setting('header_title_align', array(
+        'default'        => '50%',
+        'sanitize_callback' => 'miczit_sanitize_header_title_align_option',
+		'transport'         => 'refresh'
+    ));
+
+	$wp_customize->add_control( 'text_align_select', array(
+		'label'    => __( 'Text align', 'nisarg' ),
+		'section'  => 'header_title_options',
+		'type'     => 'text',
+		'settings'=> 'header_title_align',
+		'priority' => 3,
+	) );
+
+	/*$wp_customize->add_control( 'text_align_select', array(
+		'label'    => __( 'Text align', 'nisarg' ),
+		'section'  => 'header_title_options',
+		'type'     => 'select',
+		'choices'  => array(
+			'left' => __('Left'),
+			'center' => __('Center'),
+			'right' => __('Right'),
+		),
+		'settings'=> 'header_title_align',
+		'priority' => 3,
+	) );*/
+
+    //====================
+
 }
 add_action( 'customize_register', 'nisarg_customize_register' );
 
@@ -113,13 +152,13 @@ function nisarg_get_color_schemes() {
 		'default' => array(
 			'label'  => __( 'Default', 'nisarg' ),
 			'colors' => array(
-				'#009688',			
+				'#009688',
 			),
 		),
 		'pink'    => array(
 			'label'  => __( 'Pink', 'nisarg' ),
 			'colors' => array(
-				'#FF4081',				
+				'#FF4081',
 			),
 		),
 		'orange'  => array(
@@ -164,7 +203,7 @@ if(!function_exists('nisarg_current_color_scheme_default_color')):
  */
 function nisarg_current_color_scheme_default_color(){
 	$color_scheme_option = get_theme_mod( 'color_scheme', 'default' );
-	
+
 	$color_schemes       = nisarg_get_color_schemes();
 
 	if ( array_key_exists( $color_scheme_option, $color_schemes ) ) {
@@ -246,10 +285,27 @@ if ( ! function_exists( 'nisarg_sanitize_post_display_option' ) ) :
 function nisarg_sanitize_post_display_option( $value ) {
     if ( ! in_array( $value, array( 'post-excerpt', 'full-post' ) ) )
         $value = 'post-excerpt';
- 	
+
     return $value;
 }
 endif; // nisarg_sanitize_post_display_option
+
+if ( ! function_exists( 'miczit_sanitize_header_title_align_option' ) ) :
+
+function miczit_sanitize_header_title_align_option( $value ) {	/*TODO*/
+	return $value;
+}
+
+/*function miczit_sanitize_header_title_align_option( $value ) {
+	$choices = array('right','center','left');
+
+	if ( ! array_key_exists( $value, $choices ) ) {
+		$value = 'center';
+	}
+
+	return $value;
+}*/
+endif; // miczit_sanitize_header_title_align_option
 /**
  * Enqueues front-end CSS for color scheme.
  *
@@ -258,7 +314,7 @@ endif; // nisarg_sanitize_post_display_option
  */
 function nisarg_color_scheme_css() {
 	$color_scheme_option = get_theme_mod( 'color_scheme', 'default' );
-	
+
 	$color_scheme = nisarg_get_color_scheme();
 
 	$color = array(
@@ -297,18 +353,18 @@ function nisarg_get_color_scheme_css( $colors ) {
 		color: {$colors['accent_color']};
 	}
 
-	
+
 	.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-		color: {$colors['accent_color']};			
+		color: {$colors['accent_color']};
 	}
 
 	@media (min-width: 768px){
 		.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
 			border-top: 4px solid {$colors['accent_color']};
-		}		
+		}
 	}
 
-	.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {	    
+	.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
 	    background-color: {$colors['accent_color']};
 	}
 
@@ -339,7 +395,7 @@ function nisarg_get_color_scheme_css( $colors ) {
 	    background: {$colors['accent_color']};
 	    color:white;
 	}
-	
+
 	.entry-title a:hover,
 	.entry-title a:focus{
 	    color: {$colors['accent_color']};
@@ -382,7 +438,7 @@ function nisarg_get_color_scheme_css( $colors ) {
 	    position: absolute;
 	    width: 50px;
 	    display: block;
-	    height: 4px;    
+	    height: 4px;
 	    bottom: -15px;
 	}
 
@@ -401,7 +457,7 @@ function nisarg_get_color_scheme_css( $colors ) {
 	    background-color: {$colors['accent_color']};
 	    color: #fff;
 	    padding: 0.2em;
-	}	
+	}
 
 CSS;
 
@@ -410,19 +466,41 @@ CSS;
 
 if(! function_exists('nisarg_header_bg_color_css' ) ):
 /**
-* Set the header background color 
+* Set the header background color
 */
 function nisarg_header_bg_color_css(){
-
+	$header_bg_color=get_theme_mod( 'header_bg_color');
+if($header_bg_color!=''){
 ?>
 
 <style type="text/css">
-        .site-header { background: <?php echo get_theme_mod( 'header_bg_color'); ?>; }
+   .site-header { background: <?php echo $header_bg_color; ?>; }
 </style>
 
 <?php }
+}
 
 add_action( 'wp_head', 'nisarg_header_bg_color_css' );
+
+endif;
+
+if(! function_exists('miczit_header_title_align' ) ):
+/**
+* Set the header title alignment
+*/
+function miczit_header_title_align(){
+	$header_title_align=get_theme_mod( 'header_title_align');
+if($header_title_align!=''){
+?>
+
+<style type="text/css">
+   .site-header .site-branding { left: <?php echo $header_title_align; ?>; }
+</style>
+
+<?php }
+}
+
+add_action( 'wp_head', 'miczit_header_title_align' );
 
 endif;
 

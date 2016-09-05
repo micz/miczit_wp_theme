@@ -30,13 +30,15 @@
 		</div>
 		<div class="row">&nbsp;</div>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-1"></div>
+			<div class="col-md-5">
 				<b>Indietro nel tempo...</b>
 					<ul>
 						<?php wp_get_archives('type=yearly'); ?>
 					</ul>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
 				<b>Categorie</b>
 					<ul>
 						 <?php wp_list_categories('title_li='); ?>

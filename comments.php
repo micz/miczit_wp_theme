@@ -23,7 +23,7 @@ if ( post_password_required() ) {
 	<?php if ( have_comments() ) : ?>
 		<h2 class="comments-title">
 			<?php
-				
+
 				printf( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'nisarg' ),
 					number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
 			?>
@@ -59,9 +59,9 @@ if ( post_password_required() ) {
 		</nav><!-- .comment-navigation -->
 		<?php endif; // Check for comment navigation ?>
 
-		<?php if ( ! comments_open() && get_comments_number() ) : ?>
+		<?php /*if ( ! comments_open() && get_comments_number() ) : ?>
 		<p class="no-comments"><?php _e( 'Comments are closed.' , 'nisarg' ); ?></p>
-		<?php endif; ?>
+		<?php endif;*/ ?>
 
 	<?php endif; // have_comments() ?>
 

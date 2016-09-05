@@ -229,11 +229,11 @@ function miczit_entry_footer() {
 				$categories_list = get_the_category_list( esc_html__( ', ', 'nisarg' ) );
 				echo '<div class="miczit-hr"></div><div class="row">';
 				if ( $categories_list && nisarg_categorized_blog() ) {
-					printf( '<div class="col-md-2 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i>
+					printf( '<div class="col-md-3 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i>
 		 ' . esc_html__( '%1$s', 'nisarg' ) . '</span></div>', $categories_list ); // WPCS: XSS OK.
 				}
 				else{
-					echo '<div class="col-md-5 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i></span></div>';
+					echo '<div class="col-md-3 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i></span></div>';
 				}
 
 
@@ -242,7 +242,7 @@ function miczit_entry_footer() {
 					printf( '<div class="col-md-5 tags"><span class="tags-links"><i class="fa fa-tags"></i>' . esc_html__( ' %1$s', 'nisarg' ) . '</span></div>', $tags_list ); // WPCS: XSS OK.
 				}
 
-				echo '<div class="col-md-5 miczit-right">';
+				echo '<div class="col-md-4 miczit-right">';
 				miczit_posted_on();
 				echo '</div>';
 

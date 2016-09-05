@@ -13,7 +13,7 @@
 		                    .find( '#nisarg-color-scheme-css' );
 	}
 
-		
+
 	// Site title and description.
 	wp.customize( 'blogname', function( value ) {
 		value.bind( function( to ) {
@@ -50,6 +50,15 @@
 			});
 		} );
 	} );
+
+	wp.customize( 'header_title_align', function( value ) {
+		value.bind( function( to ) {
+			$( '.site-branding' ).css( {
+				'position':to
+			});
+		} );
+	} );
+
 	// Color Scheme CSS.
 	api.bind( 'preview-ready', function() {
 		api.preview.bind( 'update-color-scheme-css', function( css ) {
