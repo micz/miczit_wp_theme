@@ -630,9 +630,10 @@ color: #000000;
     background: #b0bec5;
     position: relative;
     width: 100%;
-    margin-bottom: 3em;
+    margin-bottom: 2em;
     overflow: hidden;
     min-height: 200px;
+    opacity: 0.8;
 }
 
 .site-header .site-branding {
@@ -784,7 +785,7 @@ color: #000000;
 }
 
 .entry-title{
-    margin-bottom: 14px;
+    margin-bottom: 8px;
 }
 
 .entry-header .entry-title a{
@@ -818,6 +819,12 @@ color: #000000;
     display: block;
     width: 50px;
     margin: 10px auto;
+    background: #009688;
+	background: -webkit-radial-gradient(#009688,white);
+	background: -o-radial-gradient(#009688,white);
+	background: -moz-radial-gradient(#009688,white);
+	background: radial-gradient(#009688,white);
+	opacity: 0.8;
 }
 
 
@@ -1153,6 +1160,12 @@ color: #000000;
     display: block;
     height: 4px;
     bottom: -15px;
+    background: #009688;
+	background: -webkit-radial-gradient(#009688,white);
+	background: -o-radial-gradient(#009688,white);
+	background: -moz-radial-gradient(#009688,white);
+	background: radial-gradient(#009688,white);
+	opacity: 0.8;
 }
 
 #secondary .widget a{
@@ -1585,7 +1598,7 @@ vertical-align:-40px;
 }
 span.quote-long{
 line-height:18px;
-margin:0 0 0 -7px;
+margin:0;
 }
 span.quote-medium{
 font-size:20px;
@@ -1628,3 +1641,13 @@ right:21px;
 div.miczit_lang img{margin-bottom:3px;}
 .entry-content a,.entry-content a:hover {text-decoration:underline;}
 article.tag-link .entry-footer a,article.tag-link .entry-footer a:hover {text-decoration:none;}
+
+h2.entry-title {
+    font-size: 28px;
+}
+
+h3.archive-page-title{
+	font-size: 35px;
+	margin-top: 0px;
+    margin-bottom: 0px;
+}

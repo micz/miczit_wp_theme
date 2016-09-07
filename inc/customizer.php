@@ -403,6 +403,11 @@ function nisarg_get_color_scheme_css( $colors ) {
 
 	.entry-header .entry-meta::after{
 	    background: {$colors['accent_color']};
+		background: -webkit-radial-gradient({$colors['accent_color']},white);
+		background: -o-radial-gradient({$colors['accent_color']},white);
+		background: -moz-radial-gradient({$colors['accent_color']},white);
+		background: radial-gradient({$colors['accent_color']},white);
+		opacity: 0.8;
 	}
 
 	.fa {

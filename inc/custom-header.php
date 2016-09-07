@@ -33,7 +33,7 @@ function nisarg_custom_header_setup() {
 			'url'           => '%s/images/headers/mountains.png',
 			'thumbnail_url' => '%s/images/headers/mountains_thumbnail.png',
 			'description'   => _x( 'food', 'header image description', 'nisarg' )
-		),	
+		),
 		'skyline' => array(
 			'url'           => '%s/images/headers/skyline.png',
 			'thumbnail_url' => '%s/images/headers/skyline_thumbnail.png',
@@ -48,7 +48,7 @@ function nisarg_custom_header_setup() {
 			'url'           => '%s/images/headers/food.png',
 			'thumbnail_url' => '%s/images/headers/food_thumbnail.png',
 			'description'   => _x( 'food', 'header image description', 'nisarg' )
-		),		
+		),
 	) );
 }
 add_action( 'after_setup_theme', 'nisarg_custom_header_setup' );
@@ -62,7 +62,7 @@ if ( ! function_exists( 'nisarg_header_style' ) ) :
 function nisarg_header_style() {
 	$header_image = get_header_image();
 	$header_text_color   = get_header_textcolor();
-		
+
 	// If no custom options for text are set, let's bail.
 	if ( empty( $header_image ) && $header_text_color == get_theme_support( 'custom-header', 'default-text-color' ) ){
 		return;
@@ -74,22 +74,22 @@ function nisarg_header_style() {
 	<?php
 		if ( ! empty( $header_image ) ) :
 			$header_width = get_custom_header()->width;
-			$header_height = get_custom_header()->height;
+			$header_height = get_custom_header()->height - 81;
+			$normalized_custom_header_height=$header_height;
 			$header_height1 = ($header_height / $header_width * 1600);
 			$header_height2 = ($header_height / $header_width * 768);
 			$header_height3 = ($header_height / $header_width * 360);
-			
+
 	?>
 				.site-header {
-					background: url(<?php header_image(); ?>) no-repeat scroll top;
+					background: url(<?php header_image(); ?>) no-repeat fixed top;
 					<?php if($header_height1 > 200){ ?>
 						background-size: 1600px auto;
-						height: <?php echo get_custom_header()->height; ?>px;
+						height: <?php echo $normalized_custom_header_height; ?>px;
 					<?php }else{ ?>
 						background-size: 1600px 200px;
 						height: 200px
 					<?php } ?>
-				}
 
 				@media (min-width: 768px) and (max-width: 1024px){
 					.site-header {
@@ -99,7 +99,7 @@ function nisarg_header_style() {
 						<?php }else{ ?>
 							background-size: 1024px 170px;
 							height: 170px;
-						<?php }	?>				
+						<?php }	?>
 					}
 				}
 
@@ -111,7 +111,7 @@ function nisarg_header_style() {
 						<?php }else{ ?>
 							background-size: 768px 170px;
 							height: 170px;
-						<?php }	?>				
+						<?php }	?>
 					}
 				}
 				@media (max-width: 359px) {
@@ -123,9 +123,9 @@ function nisarg_header_style() {
 							background-size: 768px 80px;
 							height: 80px;
 						<?php } ?>
-						
+
 					}
-					
+
 				}
 				.site-header{
 					-webkit-box-shadow: 0px 0px 2px 1px rgba(182,182,182,0.3);
@@ -153,8 +153,8 @@ function nisarg_header_style() {
 				height: 150px;
 			}
 		}
-		
-	<?php endif; 
+
+	<?php endif;
 
 		// Has the text been hidden?
 		if ( ! display_header_text() ) :
@@ -178,7 +178,7 @@ function nisarg_header_style() {
 		// If the user has set a custom color for the text, use that.
 
 		else:
-			
+
 	?>
 
 		.site-title,
@@ -187,7 +187,7 @@ function nisarg_header_style() {
 		}
 		.site-title::after{
 			background: #<?php echo esc_attr( $header_text_color ); ?>;
-			content:"";       
+			content:"";
 		}
 	<?php endif; ?>
 
@@ -234,14 +234,14 @@ function nisarg_admin_header_style() {
 
 		#headimg h1 { /* This is the site title displayed in the preview */
 			<?php echo esc_attr($style); ?>
-		    text-transform: uppercase; 
+		    text-transform: uppercase;
     		letter-spacing: 10px;
     	}
 
     	#headimg a{
     		text-decoration: none;
     	}
-		
+
 		#headimg #desc{
         	<?php echo esc_attr($style); ?>
         	text-decoration: none;
@@ -278,8 +278,8 @@ function nisarg_admin_header_image() {
             $style = ' style="color:#' . get_header_textcolor() . ';"';
 
         ?>
-        
-	<div id="headimg">      
+
+	<div id="headimg">
         <div class="site-branding">
         	<div class="home-link">
 
@@ -304,7 +304,7 @@ function nisarg_admin_header_image() {
 			    display: block;
 			    width: 20%;
 			    margin: 5px auto;
-    			}		
+    			}
     		</style>
         <?php } ?>
     </div>

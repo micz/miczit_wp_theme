@@ -234,6 +234,7 @@ function nisarg_get_link_url() {
 	return ( $nisarg_has_url ) ? $nisarg_has_url : apply_filters( 'the_permalink', get_permalink() );
 }
 
+//================================ micz.it
 function miczit_favicon_link() {
     echo '<link href="http://en.gravatar.com/avatar/6072f5dbcf8438bf469e4270a22723ca?s=16&r=any" rel="icon"/>'."\n";
 }
@@ -252,3 +253,60 @@ function miczit_get_i18n_page($id){
 		}
 	}
 }
+
+function miczit_title_filter ( $title ) {
+
+    if ( is_home() || is_front_page() )
+        unset($title['tagline']);
+
+    return $title;
+}
+add_filter( 'document_title_parts', 'miczit_title_filter', 10, 1 );
+
+add_action( 'pre_get_posts', 'miczit_exclude_images_from_home' );
+function miczit_exclude_images_from_home( $query )
+{
+    if ( is_home() || is_front_page() )
+    {
+        set_query_var( 'tax_query' , array(
+        	array(
+				'taxonomy' => 'post_format',
+				'field' => 'slug',
+				'terms' => array(
+					/*'post-format-aside',
+					'post-format-audio',
+					'post-format-chat',
+					'post-format-gallery',*/
+					'post-format-image',	//image post format are not shown in the homepage
+				   /* 'post-format-link',
+					'post-format-quote',
+					'post-format-status',
+					'post-format-video'*/
+				),
+				'operator' => 'NOT IN'
+       		)
+    	));
+    	set_query_var('tag__not_in' , array( 254 ));	//post with this tag are not shown in the homepage
+    }
+}
+
+ function miczit_archive_title($title) {
+
+    if ( is_category() ) {
+
+            $title = single_cat_title( '', false );
+
+        } elseif ( is_tag() ) {
+
+            $title = single_tag_title( '', false );
+
+        } elseif ( is_month() ) {
+
+            $title = sprintf( __( '%s' ), get_the_date( _x( 'F Y', 'monthly archives date format' ) ) );
+
+        }
+
+    return $title;
+
+}
+add_filter( 'get_the_archive_title','miczit_archive_title');

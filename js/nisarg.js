@@ -3,19 +3,19 @@
  */
 
 (function($){
-    
+
     //handles top level menu item without children
     $( '.navbar-nav > li.menu-item > a' ).click( function(){
-    	if($(this).attr('target') != '_blank' && $(this).attr('class') != 'dropdown-toggle')    		
-          window.location = $( this ).attr( 'href' );   	
+    	if($(this).attr('target') != '_blank' && $(this).attr('class') != 'dropdown-toggle')
+          window.location = $( this ).attr( 'href' );
     });
 
     //handles top level menu item having children
     $( '.navbar-nav > li.menu-item > .dropdown-toggle' ).click( function(){
     	if($(this).attr('target') == '_blank')
-          window.open(this.href); // $( this ).attr( 'href' );   
+          window.open(this.href); // $( this ).attr( 'href' );
         else
-          window.location = $( this ).attr( 'href' );   		
+          window.location = $( this ).attr( 'href' );
     });
 
     $('.dropdown').hover(function() {
@@ -26,7 +26,7 @@
     });
 
     var setHeight = function (h) {
-		
+
 	height = h;
 
 	$("#cc_spacer").css("height", height + "px");
@@ -43,3 +43,16 @@
 
 })(jQuery);
 
+/**
+ * Makes the site title scrolling with fade
+ */
+(function($) {
+    var divs = $('.site-branding');
+    $(window).on('scroll', function() {
+        let st = $(this).scrollTop();
+        divs.css({
+            /*'margin-top' : -(st/30)+"px",*/
+            'opacity' : 1 - st/90
+        });
+    });
+})(jQuery);
