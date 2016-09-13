@@ -47,12 +47,17 @@
  * Makes the site title scrolling with fade
  */
 (function($) {
-    var divs = $('.site-branding');
+    let title_txt_div = $('.site-branding');
+    let title_img_div = $('.site-header');
     $(window).on('scroll', function() {
         let st = $(this).scrollTop();
-        divs.css({
-            /*'margin-top' : -(st/30)+"px",*/
-            'opacity' : 1 - st/90
+        let speed = 0.5;
+        title_txt_div.css({
+            /*'margin-top' : -(st/mvd)+"px",*/
+            'opacity' : 1 - (st/180)
+        });
+        title_img_div.css({
+            'background-position' : "50% " + (st * speed) + "px"
         });
     });
 })(jQuery);

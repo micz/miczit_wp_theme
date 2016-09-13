@@ -74,22 +74,22 @@ function nisarg_header_style() {
 	<?php
 		if ( ! empty( $header_image ) ) :
 			$header_width = get_custom_header()->width;
-			$header_height = get_custom_header()->height - 81;
-			$normalized_custom_header_height=$header_height;
+			$header_height = get_custom_header()->height;
 			$header_height1 = ($header_height / $header_width * 1600);
 			$header_height2 = ($header_height / $header_width * 768);
 			$header_height3 = ($header_height / $header_width * 360);
 
 	?>
 				.site-header {
-					background: url(<?php header_image(); ?>) no-repeat fixed top;
+					background: url(<?php header_image(); ?>) no-repeat scroll top;
 					<?php if($header_height1 > 200){ ?>
 						background-size: 1600px auto;
-						height: <?php echo $normalized_custom_header_height; ?>px;
+						height: <?php echo get_custom_header()->height; ?>px;
 					<?php }else{ ?>
 						background-size: 1600px 200px;
 						height: 200px
 					<?php } ?>
+				}
 
 				@media (min-width: 768px) and (max-width: 1024px){
 					.site-header {
@@ -125,8 +125,10 @@ function nisarg_header_style() {
 						<?php } ?>
 
 					}
-
-				}
+					big.quote{
+						left:0.1em;
+						top:0.8em;
+					}
 				.site-header{
 					-webkit-box-shadow: 0px 0px 2px 1px rgba(182,182,182,0.3);
 			    	-moz-box-shadow: 0px 0px 2px 1px rgba(182,182,182,0.3);
@@ -311,5 +313,3 @@ function nisarg_admin_header_image() {
 <?php
 }
 endif; // nisarg_admin_header_image
-
-

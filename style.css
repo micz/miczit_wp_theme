@@ -467,8 +467,6 @@ img.wp-post-image{
     margin:0 auto 15px;
 }
 
-
-
 /**
  * 3.0 Header
  * ----------------------------------------------------------------------------
@@ -633,7 +631,7 @@ color: #000000;
     margin-bottom: 2em;
     overflow: hidden;
     min-height: 200px;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .site-header .site-branding {
@@ -745,7 +743,7 @@ color: #000000;
 .post-comments{
     border-radius: 0px;
     border: none;
-    padding: 2em;
+    padding: 0em 1em;
     overflow: hidden;
 }
 
@@ -1158,7 +1156,7 @@ color: #000000;
     position: absolute;
     width: 50px;
     display: block;
-    height: 4px;
+    height: 2px;
     bottom: -15px;
     background: #009688;
 	background: -webkit-radial-gradient(#009688,white);
@@ -1580,8 +1578,8 @@ line-height:1px;
 opacity:0.4;
 vertical-align:-23px;
 position:absolute;
-left:30px;
-top:55px;
+left:0.5em;
+top:0.8em;
 }
 big.quote2{
 font-family:Georgia,serif;
@@ -1651,3 +1649,50 @@ h3.archive-page-title{
 	margin-top: 0px;
     margin-bottom: 0px;
 }
+main.fotografia article.page{
+margin-bottom:0;
+}
+.entry-header-fotografia{
+    padding-top: 0em;
+    padding-bottom: 0em;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+div.miczit-small-width{
+	float:left;
+	padding: 0.5em 0.5em 0em 0.5em;
+}
+.miczit-small-width img{
+	margin:0 auto;
+}
+.entry-content-miczit-small-width{
+	float:left;
+    font-size: 14px;
+    padding-bottom: 0em;
+    margin-left: 1em;
+    padding-top: 0.5em;
+}
+.entry-content-miczit-small-width p{
+	margin-bottom:0;
+    font-style: italic;
+    font-size:16px;
+}
+footer.miczit-small-width{
+	padding-bottom:0.6em;
+}
+article.format-image{position:relative;}
+.miczit-last-foto img{
+margin-bottom:0;
+}
+#secondary .widget_fotografia_miczit li {
+padding: 0.5em 0 0;
+}
+.miczit-full-width img{margin:0 auto;}
+.miczit-full-width{padding:0;}
+.miczit-fotografia-content{
+padding:0 0.5em;
+max-width:750px;
+margin:0 auto;
+}
+.miczit-fotografia-content em, .entry-content-miczit-small-width em{font-size: 85%; color:#727d7a;}

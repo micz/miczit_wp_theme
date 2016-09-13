@@ -240,6 +240,8 @@ function miczit_entry_footer() {
 				$tags_list = get_the_tag_list( '', esc_html__( ', ', 'nisarg' ) );
 				if ( $tags_list ) {
 					printf( '<div class="col-md-5 tags"><span class="tags-links"><i class="fa fa-tags"></i>' . esc_html__( ' %1$s', 'nisarg' ) . '</span></div>', $tags_list ); // WPCS: XSS OK.
+				}else{
+					echo '<div class="col-md-5 tags"></div>';
 				}
 
 				echo '<div class="col-md-4 miczit-right">';
@@ -333,6 +335,30 @@ function nisarg_featured_image_disaplay(){
 	if ( has_post_thumbnail() && ! post_password_required() && ! is_attachment() ) {  // check if the post has a Post Thumbnail assigned to it.
         echo '<div class="featured-image">';
             the_post_thumbnail('nisarg-full-width');
+        echo '</div>';
+    }
+}
+
+/**
+*  Display featured image of the post
+**/
+
+function miczit_featured_image_display($img_size){
+	if ( has_post_thumbnail() && ! post_password_required() && ! is_attachment() ) {  // check if the post has a Post Thumbnail assigned to it.
+		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
+		$attachment_url_html=get_the_post_thumbnail(null,$img_size,'');
+		if ( ! empty( $large_image_url[0] ) ) {
+				$attachment_url_html=sprintf( '<a href="%1$s" alt="%2$s">%3$s</a>',
+											esc_url( $large_image_url[0] ),
+											esc_attr( the_title_attribute( 'echo=0' ) ),
+											get_the_post_thumbnail(null,$img_size,'')
+									);
+		}
+        echo '<div class="featured-image '.$img_size.'">';
+        if ( function_exists('slb_activate') ){
+    		$attachment_url_html = slb_activate($attachment_url_html);
+		}
+        echo $attachment_url_html;
         echo '</div>';
     }
 }

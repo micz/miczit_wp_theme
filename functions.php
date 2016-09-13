@@ -5,6 +5,8 @@
  * @package Nisarg
  */
 
+ $miczit_theme_ver='v4-0913';
+
 
 if ( ! function_exists( 'nisarg_setup' ) ) :
 /**
@@ -50,6 +52,8 @@ function nisarg_setup() {
 	add_theme_support( 'post-thumbnails' );
 	set_post_thumbnail_size( 604, 270);
 	add_image_size( 'nisarg-full-width', 1038, 576, true );
+	add_image_size( 'miczit-full-width', 1038, 576, false );
+	add_image_size( 'miczit-small-width', 200, 200, false );
 
 
 	function register_nisarg_menus() {
@@ -136,6 +140,15 @@ function nisarg_widgets_init() {
 		'before_title'  => '<h4 class="widget-title">',
 		'after_title'   => '</h4>',
 	) );
+	register_sidebar( array(
+		'name'          => esc_html__( 'Fotografia', 'nisarg' ),
+		'id'            => 'fotografia',
+		'description'   => '',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
+	) );
 }
 add_action( 'widgets_init', 'nisarg_widgets_init' );
 
@@ -143,9 +156,11 @@ add_action( 'widgets_init', 'nisarg_widgets_init' );
  * Enqueue scripts and styles.
  */
 function nisarg_scripts() {
+	global $miczit_theme_ver;
+
 	wp_enqueue_style( 'bootstrap', get_template_directory_uri().'/css/bootstrap.css' );
 
-	wp_enqueue_style( 'nisarg-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'nisarg-style', get_stylesheet_uri() , array(), $miczit_theme_ver);
 
 	wp_enqueue_style( 'font-awesome', get_template_directory_uri().'/font-awesome/css/font-awesome.min.css' );
 
@@ -153,7 +168,7 @@ function nisarg_scripts() {
 
 	wp_enqueue_script( 'nisarg-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array('jquery'), '20130115', true );
 
-	wp_enqueue_script( 'nisarg-js', get_template_directory_uri() . '/js/nisarg.js',array('jquery'),'',true);
+	wp_enqueue_script( 'nisarg-js', get_template_directory_uri() . '/js/nisarg.js',array('jquery'),$miczit_theme_ver,true);
 
 	wp_enqueue_script( 'html5shiv', get_template_directory_uri().'/js/html5shiv.js', array(),'3.7.3',false );
 	wp_script_add_data( 'html5shiv', 'conditional', 'lt IE 9' );
@@ -237,6 +252,7 @@ function nisarg_get_link_url() {
 //================================ micz.it
 function miczit_favicon_link() {
     echo '<link href="http://en.gravatar.com/avatar/6072f5dbcf8438bf469e4270a22723ca?s=16&r=any" rel="icon"/>'."\n";
+    echo '<link href="http://en.gravatar.com/avatar/6072f5dbcf8438bf469e4270a22723ca" rel="apple-touch-icon" />'."\n";
 }
 add_action('wp_head', 'miczit_favicon_link');
 
@@ -245,11 +261,11 @@ function miczit_get_i18n_page($id){
 	$after='</div>';
 	$en_lang=get_post_meta($id,'en',true);
 	if($en_lang){
-		echo $before.'<a href="'.$en_lang.'">Read this content in English <img alt="" title="English" src="'.get_stylesheet_directory_uri().'/images/uk-icon.png" border="0"/></a>'.$after;
+		echo $before.'<a href="'.$en_lang.'#m">Read this content in English <img alt="" title="English" src="'.get_stylesheet_directory_uri().'/images/uk-icon.png" border="0"/></a>'.$after;
 	}else{
 		$it_lang=get_post_meta($id,'it',true);
 		if($it_lang){
-			echo $before.'<a href="'.$it_lang.'">Leggi questo contenuto in Italiano <img alt="" title="Italiano" src="'.get_stylesheet_directory_uri().'/images/italy-icon.png" border="0"/></a>'.$after;
+			echo $before.'<a href="'.$it_lang.'#m">Leggi questo contenuto in Italiano <img alt="" title="Italiano" src="'.get_stylesheet_directory_uri().'/images/italy-icon.png" border="0"/></a>'.$after;
 		}
 	}
 }
@@ -310,3 +326,16 @@ function miczit_exclude_images_from_home( $query )
 
 }
 add_filter( 'get_the_archive_title','miczit_archive_title');
+
+function miczit_filter_tags( $term_links ) {
+    $result = array();
+    $exclude_tags = array( 'nohome' );
+    foreach ( $term_links as $link ) {
+        foreach ( $exclude_tags as $tag ) {
+            if ( stripos( $link, $tag ) !== false ) continue 2;
+        }
+        $result[] = $link;
+    }
+    return $result;
+}
+add_filter( "term_links-post_tag", 'miczit_filter_tags', 100, 1 );

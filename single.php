@@ -5,20 +5,21 @@
  * @package Nisarg
  */
 
-get_header(); ?>
-
+get_header();
+?>
 	<div class="container">
         <div class="row">
-			<div id="primary" class="col-md-9 content-area">
+			<?php while ( have_posts() ) : the_post();
+						$curr_post_format=get_post_format();?>
+			<div id="primary" class="col-md-<?php echo $curr_post_format=='image'?'12':'9';?> content-area">
 				<main id="main" role="main">
 
-				<?php while ( have_posts() ) : the_post(); ?>
-
-					<?php get_template_part( 'template-parts/content',get_post_format()); ?>
+				<?php
+						get_template_part( 'template-parts/content',$curr_post_format); ?>
 				</main><!-- #main -->
 
 				<div class="post-navigation">
-					<?php nisarg_post_navigation(); ?>
+					<?php /*nisarg_post_navigation();*/	?>
 				</div>
 
 				<div class="post-comments">
@@ -39,7 +40,12 @@ get_header(); ?>
 
 			</div><!-- #primary -->
 
-			<?php get_sidebar('sidebar-1'); ?>
+			<?php
+			 if($curr_post_format=='image'){ //we are showing a photo
+				 //get_sidebar('fotografia');
+			 }else{
+				 get_sidebar('sidebar-1');
+			 }?>
 		</div> <!--.row-->
     </div><!--.container-->
     <?php get_footer(); ?>

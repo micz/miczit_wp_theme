@@ -443,7 +443,7 @@ function nisarg_get_color_scheme_css( $colors ) {
 	    position: absolute;
 	    width: 50px;
 	    display: block;
-	    height: 4px;
+	    height: 2px;
 	    bottom: -15px;
 	}
 
@@ -497,14 +497,11 @@ function miczit_header_title_align(){
 	$header_title_align=get_theme_mod( 'header_title_align');
 if($header_title_align!=''){
 ?>
-
 <style type="text/css">
    .site-header .site-branding { left: <?php echo $header_title_align; ?>; }
 </style>
-
 <?php }
 }
-
 add_action( 'wp_head', 'miczit_header_title_align' );
 
 endif;
