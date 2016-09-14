@@ -1696,3 +1696,4 @@ max-width:750px;
 margin:0 auto;
 }
 .miczit-fotografia-content em, .entry-content-miczit-small-width em{font-size: 85%; color:#727d7a;}
+time.entry-date{text-transform: capitalize;}

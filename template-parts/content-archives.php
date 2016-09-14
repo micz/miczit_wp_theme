@@ -32,14 +32,14 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-5">
-				<b>Indietro nel tempo...</b>
+				<b><?php echo miczit_get_user_lang()=='it'?'Indietro nel tempo...':'Going back in time...'?></b>
 					<ul>
 						<?php wp_get_archives('type=yearly'); ?>
 					</ul>
 				</div>
 				<div class="col-md-1"></div>
 				<div class="col-md-5">
-				<b>Categorie</b>
+				<b>Categorie<?php echo miczit_get_user_lang()=='it'?'':'s'?></b>
 					<ul>
 						 <?php wp_list_categories('title_li='); ?>
 					</ul>

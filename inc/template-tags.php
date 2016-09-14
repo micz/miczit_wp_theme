@@ -252,7 +252,7 @@ function miczit_entry_footer() {
 			}
 	//}
 
-	edit_post_link( esc_html__( 'Edit This Post', 'nisarg' ), '<br><span>', '</span>' );
+	edit_post_link( esc_html__( 'Edit' ), '<br><span>', '</span>' );
 
 }
 endif;

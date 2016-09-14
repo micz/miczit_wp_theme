@@ -27,10 +27,10 @@ if ( ! function_exists( 'nisarg_header_menu' ) ) :
     /**
      * Header menu (should you choose to use one)
      */
-    function nisarg_header_menu() {
+    function nisarg_header_menu($theme_location='primary') {
       // display the WordPress Custom Menu if available
       wp_nav_menu(array(
-        'theme_location'    => 'primary',
+        'theme_location'    => $theme_location,
         'depth'             => 2,
         'container'         => 'div',
         'container_class'   => 'collapse navbar-collapse navbar-ex1-collapse',

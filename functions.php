@@ -60,6 +60,7 @@ function nisarg_setup() {
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
 			'primary' => esc_html__( 'Top Primary Menu', 'nisarg' ),
+			'primary_en' => esc_html__( 'Top Primary Menu EN', 'nisarg' ),
 		) );
 	}
 
@@ -279,7 +280,6 @@ function miczit_title_filter ( $title ) {
 }
 add_filter( 'document_title_parts', 'miczit_title_filter', 10, 1 );
 
-add_action( 'pre_get_posts', 'miczit_exclude_images_from_home' );
 function miczit_exclude_images_from_home( $query )
 {
     if ( is_home() || is_front_page() )
@@ -305,25 +305,17 @@ function miczit_exclude_images_from_home( $query )
     	set_query_var('tag__not_in' , array( 254 ));	//post with this tag are not shown in the homepage
     }
 }
+add_action( 'pre_get_posts', 'miczit_exclude_images_from_home' );
 
- function miczit_archive_title($title) {
-
+function miczit_archive_title($title) {
     if ( is_category() ) {
-
             $title = single_cat_title( '', false );
-
         } elseif ( is_tag() ) {
-
             $title = single_tag_title( '', false );
-
         } elseif ( is_month() ) {
-
             $title = sprintf( __( '%s' ), get_the_date( _x( 'F Y', 'monthly archives date format' ) ) );
-
         }
-
     return $title;
-
 }
 add_filter( 'get_the_archive_title','miczit_archive_title');
 
@@ -339,3 +331,18 @@ function miczit_filter_tags( $term_links ) {
     return $result;
 }
 add_filter( "term_links-post_tag", 'miczit_filter_tags', 100, 1 );
+
+if ( ! function_exists( 'miczit_get_user_lang' ) ) :
+
+function miczit_get_user_lang(){
+	$user_pref_langs = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+	if($user_pref_langs){
+		if(substr($user_pref_langs[0],0,2)=='it'){
+			return 'it';
+		}else{
+			return 'en';
+		}
+	}
+}
+
+endif;

@@ -31,12 +31,19 @@
 <div id="page" class="hfeed site">
 <header id="masthead"  role="banner">
 
+<?php	//lang handling
+$lang=miczit_get_user_lang();
+$menu_position='primary';
+if($lang=='en'){
+	$menu_position='primary_en';
+}
+?>
 
     <nav class="navbar navbar-default navbar-fixed-top navbar-left" role="navigation">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="container" id="navigation_menu">
         <div class="navbar-header">
-          <?php if ( has_nav_menu( 'primary' ) ) { ?>
+          <?php if ( has_nav_menu( $menu_position ) ) { ?>
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -47,9 +54,8 @@
           <a class="navbar-brand" href="<?php echo esc_url( home_url('/'));?>"><?php bloginfo('name')?></a>
         </div>
 
-
-          <?php if ( has_nav_menu( 'primary' ) ) {
-              nisarg_header_menu(); // main navigation
+          <?php if ( has_nav_menu( $menu_position ) ) {
+              nisarg_header_menu( $menu_position ); // main navigation
             }
           ?>
 
