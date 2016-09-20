@@ -5,7 +5,7 @@
  * @package Nisarg
  */
 
- $miczit_theme_ver='v4-0913';
+ $miczit_theme_ver='v4-0920';
 
 
 if ( ! function_exists( 'nisarg_setup' ) ) :
@@ -257,16 +257,24 @@ function miczit_favicon_link() {
 }
 add_action('wp_head', 'miczit_favicon_link');
 
-function miczit_get_i18n_page($id){
+function miczit_get_i18n_page($id,$short=false){
 	$before='<div class="miczit_lang">';
 	$after='</div>';
 	$en_lang=get_post_meta($id,'en',true);
 	if($en_lang){
-		echo $before.'<a href="'.$en_lang.'#m">Read this content in English <img alt="" title="English" src="'.get_stylesheet_directory_uri().'/images/uk-icon.png" border="0"/></a>'.$after;
+		$msg_en='';
+		if(!$short){
+			$msg_en='Read this content in English ';
+		}
+		echo $before.'<a href="'.$en_lang.'#m">'.$msg_en.'<img alt="" title="English" src="'.get_stylesheet_directory_uri().'/images/uk-icon.png" border="0"/></a>'.$after;
 	}else{
 		$it_lang=get_post_meta($id,'it',true);
 		if($it_lang){
-			echo $before.'<a href="'.$it_lang.'#m">Leggi questo contenuto in Italiano <img alt="" title="Italiano" src="'.get_stylesheet_directory_uri().'/images/italy-icon.png" border="0"/></a>'.$after;
+			$msg_it='';
+			if(!$short){
+				$msg_it='Leggi questo contenuto in Italiano ';
+			}
+			echo $before.'<a href="'.$it_lang.'#m">'.$msg_it.'<img alt="" title="Italiano" src="'.get_stylesheet_directory_uri().'/images/italy-icon.png" border="0"/></a>'.$after;
 		}
 	}
 }
@@ -346,3 +354,129 @@ function miczit_get_user_lang(){
 }
 
 endif;
+
+function miczit_search_filter($query){
+	if (($query->is_search)&&!is_admin()) {
+		$query->set('post_type', 'post');
+	}
+	return $query;
+}
+add_filter('pre_get_posts','miczit_search_filter');
+
+
+// TAG and CATEGORY translation - micz.it
+//add field on form
+function miczit_tag_lang_field_add() {
+    ?>
+        <div class="form-field">
+            <label for="miczit_english"><?php _e( 'English', 'nisarg' ); ?></label>
+            <input type="text" name="miczit_english" id="miczit_english" value="">
+            <p class="description"><?php _e( 'English translation for the name field.', 'nisarg' ); ?></p>
+        </div>
+    <?php
+}
+add_action('add_tag_form_fields','miczit_tag_lang_field_add');
+add_action('category_add_form_fields','miczit_tag_lang_field_add');
+
+//edit field form
+function miczit_tag_lang_field_edit($term) {
+	$miczit_english=get_term_meta( $term->term_id, 'miczit_english', true );
+    ?><tr class="form-field term-group-wrap">
+        <th scope="row"><label for="miczit_english"><?php _e('English','nisarg'); ?></label></th>
+        <td><input type="text" name="miczit_english" id="miczit_english" value="<?php echo $miczit_english; ?>">
+        <p class="description"><?php _e( 'English translation for the name field.', 'nisarg' ); ?></p></td>
+    </tr><?php
+}
+add_action('post_tag_edit_form_fields','miczit_tag_lang_field_Edit');
+add_action('edit_category_form_fields','miczit_tag_lang_field_Edit');
+
+//add column on list
+function micz_add_tag_column($columns){
+    $columns['miczit_english'] = __('English','nisarg');
+    return $columns;
+}
+add_filter('manage_edit-post_tag_columns', 'micz_add_tag_column');
+add_filter('manage_edit-category_columns', 'micz_add_tag_column');
+
+//make it sortable
+function micz_add_tag_sortable_column( $sortable_columns ) {
+   $sortable_columns[ 'miczit_english' ] = 'miczit_english';
+   return $sortable_columns;
+}
+add_filter( 'manage_edit-post_tag_sortable_columns', 'micz_add_tag_sortable_column' );
+add_filter( 'manage_edit-category_sortable_columns', 'micz_add_tag_sortable_column' );
+
+//Fill the new column
+function miczit_tag_column_content( $content, $column_name, $term_id ){
+    switch( $column_name ){
+    case 'miczit_english' :
+      return get_term_meta( $term_id, 'miczit_english', true );
+      break;
+    default: return $content;
+    break;
+  }
+}
+add_filter('manage_post_tag_custom_column', 'miczit_tag_column_content',10,3);
+add_filter('manage_category_custom_column', 'miczit_tag_column_content',10,3);
+
+//Save the new field - EDIT
+function miczit_edit_tag_meta( $term_id, $taxonomy ) {
+	if( isset( $_POST['miczit_english'] ) && '' !== trim($_POST['miczit_english']) ){
+		update_term_meta( $term_id, 'miczit_english', esc_html($_REQUEST['miczit_english']) );
+	}
+}
+add_action( 'edited_post_tag', 'miczit_edit_tag_meta' ,10,2);
+add_action( 'edited_category', 'miczit_edit_tag_meta' ,10,2 );
+
+//Save the new field - CREATE
+function miczit_create_tag_meta( $term_id, $tt_id , $taxonomy ) {
+	if( isset( $_POST['miczit_english'] ) && '' !== trim($_POST['miczit_english']) ){
+		add_term_meta( $term_id, 'miczit_english', esc_html($_REQUEST['miczit_english']) , true );
+	}
+}
+add_action( 'created_post_tag', 'miczit_create_tag_meta',10,3 );
+add_action( 'created_category', 'miczit_create_tag_meta',10,3 );
+
+//Add custom filed to quick edit
+/*function miczit_tag_quick_edit($column_name,$post_type,$taxonomy){
+if (($column_name != 'miczit_english')||($post_type!='edit-tags')) return;
+//$miczit_english=get_term_meta( $term->term_id, 'miczit_english', true );
+?>
+<fieldset>
+<div class="inline-edit-col">
+	<label>
+    <span class="title"><?php _e('English','nisarg'); ?></span>
+    <span class="input-text-wrap"><input type="text" name="<?php _e('English','nisarg'); ?>" value="<?php echo $taxonomy->term_id ?>" class="ptitle"></span>
+    </label>
+    </div>
+    </fieldset>
+    <?php
+}
+add_action('quick_edit_custom_box','miczit_tag_quick_edit',10,3);
+
+function miczit_quick_add_script() { ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('a.editinline').live('click', function() {
+            var id = inlineEditPost.getId(this);
+            var val = jQuery('#inline_' + id + '_miczit_english').text());
+            jQuery('#miczit_english').text(val);
+        });
+    });
+    </script>
+    <?php
+}
+add_action('admin_head-edit.php','miczit_quick_add_script');*/
+
+//translate the tax if needed
+function miczit_translate_tax($terms, $post_ID, $taxonomy){
+	foreach ($terms as $i => $term){
+		$miczit_english=get_term_meta( $term->term_id, 'miczit_english', true );
+		if($miczit_english!=''){
+			$terms[$i]->name=$miczit_english;
+		}
+	}
+	return $terms;
+}
+add_filter('get_the_terms', 'miczit_translate_tax',10,3);
+add_filter('get_terms', 'miczit_translate_tax',10,3);

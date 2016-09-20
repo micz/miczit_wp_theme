@@ -13,7 +13,7 @@
 	if ( is_sticky() && is_home() && ! is_paged() ) {
 		printf( '<span class="sticky-post">%s</span>', __( 'Featured', 'nisarg' ) );
 	} ?>
-	<?php if(is_single()){miczit_get_i18n_page($post->ID);} ?>
+	<?php miczit_get_i18n_page($post->ID,!is_single()); ?>
 	<?php nisarg_featured_image_disaplay(); ?>
 
 	<header class="entry-header">

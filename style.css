@@ -311,6 +311,10 @@ input[type="search"].search-field {
     width: 40px;
 }
 
+.entry-content .search-submit:before {
+top:-5px;
+}
+
 .search-submit {
     border-radius: 0 2px 2px 0;
     bottom: 0;
@@ -1578,7 +1582,7 @@ line-height:1px;
 opacity:0.4;
 vertical-align:-23px;
 position:absolute;
-left:0.5em;
+left:0.4em;
 top:0.8em;
 }
 big.quote2{
@@ -1611,7 +1615,6 @@ margin:0 0 0 -7px;
 }
 
 article.tag-citazioni {
-position:relative;
 background:white;
 background:-webkit-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* Safari 5.1 to 6.0 */
 background:-o-linear-gradient(rgba(0, 115, 150, 0.14), white 62%); /* For Opera 11.6 to 12.0 */
@@ -1633,7 +1636,7 @@ article.tag-link a, article.tag-link a:hover{text-decoration:underline;}
 div.miczit_lang{
 font-size:14px;
 position:absolute;
-right:21px;
+right:4px;
 }
 
 div.miczit_lang img{margin-bottom:3px;}
@@ -1688,7 +1691,7 @@ margin-bottom:0;
 #secondary .widget_fotografia_miczit li {
 padding: 0.5em 0 0;
 }
-.miczit-full-width img{margin:0 auto;}
+.miczit-full-width img{margin:0 auto;width:795px;}
 .miczit-full-width{padding:0;}
 .miczit-fotografia-content{
 padding:0 0.5em;
@@ -1697,3 +1700,5 @@ margin:0 auto;
 }
 .miczit-fotografia-content em, .entry-content-miczit-small-width em{font-size: 85%; color:#727d7a;}
 time.entry-date{text-transform: capitalize;}
+
+article.post-content{position:relative;}

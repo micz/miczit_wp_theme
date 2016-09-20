@@ -8,13 +8,13 @@
 
 ?>
 
-<section class="no-results not-found">
-	<header class="page-header">
+<article class="no-results not-found post-content">
+	<header class="entry-header">
 		<span class="screen-reader-text"><?php esc_html_e( 'Nothing Found', 'nisarg' ); ?></span>
 		<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'nisarg' ); ?></h1>
 	</header><!-- .page-header -->
 
-	<div class="page-content">
+	<div class="entry-content">
 		<?php if ( is_home() && current_user_can( 'publish_posts' ) ) : ?>
 
 			<p><?php printf( wp_kses( __( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', 'nisarg' ), array( 'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'post-new.php' ) ) ); ?></p>
@@ -31,4 +31,5 @@
 
 		<?php endif; ?>
 	</div><!-- .page-content -->
-</section><!-- .no-results -->
+<footer class="entry-footer">&nbsp;</footer>
+</article><!-- .no-results -->
