@@ -5,7 +5,7 @@
  * @package Nisarg
  */
 
- $miczit_theme_ver='v4-0920';
+ $miczit_theme_ver='v4-0924';
 
 
 if ( ! function_exists( 'nisarg_setup' ) ) :
@@ -52,7 +52,7 @@ function nisarg_setup() {
 	add_theme_support( 'post-thumbnails' );
 	set_post_thumbnail_size( 604, 270);
 	add_image_size( 'nisarg-full-width', 1038, 576, true );
-	add_image_size( 'miczit-full-width', 1038, 576, false );
+	add_image_size( 'miczit-full-width', 1024, 576, false );
 	add_image_size( 'miczit-small-width', 200, 200, false );
 
 
@@ -280,13 +280,42 @@ function miczit_get_i18n_page($id,$short=false){
 }
 
 function miczit_title_filter ( $title ) {
-
     if ( is_home() || is_front_page() )
         unset($title['tagline']);
-
+    if (( is_tag() || is_category() )&&(miczit_get_user_lang()!='it')){
+		if(is_category()){
+			$category = get_category( get_query_var( 'cat' ) );
+			$term_id = $category->cat_ID;
+		}else{	//is a tag
+			$tag = get_category( get_query_var( 'tag_id' ) );
+			$term_id = $tag->term_id;
+		}
+		$miczit_english=get_term_meta( $term_id, 'miczit_english', true );
+		if($miczit_english!=''){
+			$title['title']=$miczit_english;
+		}
+	}
     return $title;
 }
 add_filter( 'document_title_parts', 'miczit_title_filter', 10, 1 );
+
+function miczit_archive_title_filter ( $title ) {
+    if (( is_tag() || is_category() )&&(miczit_get_user_lang()!='it')){
+		if(is_category()){
+			$category = get_category( get_query_var( 'cat' ) );
+			$term_id = $category->cat_ID;
+		}else{	//is a tag
+			$tag = get_category( get_query_var( 'tag_id' ) );
+			$term_id = $tag->term_id;
+		}
+		$miczit_english=get_term_meta( $term_id, 'miczit_english', true );
+		if($miczit_english!=''){
+			$title=$miczit_english;
+		}
+	}
+    return $title;
+}
+add_filter( 'get_the_archive_title', 'miczit_archive_title_filter', 100, 1 );
 
 function miczit_exclude_images_from_home( $query )
 {
@@ -391,20 +420,20 @@ add_action('post_tag_edit_form_fields','miczit_tag_lang_field_Edit');
 add_action('edit_category_form_fields','miczit_tag_lang_field_Edit');
 
 //add column on list
-function micz_add_tag_column($columns){
+function miczit_add_tag_column($columns){
     $columns['miczit_english'] = __('English','nisarg');
     return $columns;
 }
-add_filter('manage_edit-post_tag_columns', 'micz_add_tag_column');
-add_filter('manage_edit-category_columns', 'micz_add_tag_column');
+add_filter('manage_edit-post_tag_columns', 'miczit_add_tag_column');
+add_filter('manage_edit-category_columns', 'miczit_add_tag_column');
 
 //make it sortable
-function micz_add_tag_sortable_column( $sortable_columns ) {
+function miczit_add_tag_sortable_column( $sortable_columns ) {
    $sortable_columns[ 'miczit_english' ] = 'miczit_english';
    return $sortable_columns;
 }
-add_filter( 'manage_edit-post_tag_sortable_columns', 'micz_add_tag_sortable_column' );
-add_filter( 'manage_edit-category_sortable_columns', 'micz_add_tag_sortable_column' );
+add_filter( 'manage_edit-post_tag_sortable_columns', 'miczit_add_tag_sortable_column' );
+add_filter( 'manage_edit-category_sortable_columns', 'miczit_add_tag_sortable_column' );
 
 //Fill the new column
 function miczit_tag_column_content( $content, $column_name, $term_id ){
@@ -434,23 +463,21 @@ function miczit_create_tag_meta( $term_id, $tt_id , $taxonomy ) {
 		add_term_meta( $term_id, 'miczit_english', esc_html($_REQUEST['miczit_english']) , true );
 	}
 }
-add_action( 'created_post_tag', 'miczit_create_tag_meta',10,3 );
-add_action( 'created_category', 'miczit_create_tag_meta',10,3 );
+add_action( 'created_post_tag', 'miczit_create_tag_meta',10,2 );
+add_action( 'created_category', 'miczit_create_tag_meta',10,2 );
 
 //Add custom filed to quick edit
 /*function miczit_tag_quick_edit($column_name,$post_type,$taxonomy){
-if (($column_name != 'miczit_english')||($post_type!='edit-tags')) return;
-//$miczit_english=get_term_meta( $term->term_id, 'miczit_english', true );
-?>
-<fieldset>
-<div class="inline-edit-col">
-	<label>
-    <span class="title"><?php _e('English','nisarg'); ?></span>
-    <span class="input-text-wrap"><input type="text" name="<?php _e('English','nisarg'); ?>" value="<?php echo $taxonomy->term_id ?>" class="ptitle"></span>
-    </label>
-    </div>
-    </fieldset>
-    <?php
+	if (($column_name != 'miczit_english')||($post_type!='edit-tags')) return;
+	//$miczit_english=get_term_meta( $term->term_id, 'miczit_english', true );
+	?><fieldset>
+	<div class="inline-edit-col">
+		<label>
+		<span class="title"><?php _e('English','nisarg'); ?></span>
+		<span class="input-text-wrap"><input type="text" name="<?php _e('English','nisarg'); ?>" value="<?php echo $taxonomy->term_id ?>" class="ptitle"></span>
+		</label>
+		</div>
+		</fieldset><?php
 }
 add_action('quick_edit_custom_box','miczit_tag_quick_edit',10,3);
 
@@ -470,6 +497,8 @@ add_action('admin_head-edit.php','miczit_quick_add_script');*/
 
 //translate the tax if needed
 function miczit_translate_tax($terms, $post_ID, $taxonomy){
+	if(is_admin()) return $terms;
+	if(miczit_get_user_lang()=='it') return $terms;
 	foreach ($terms as $i => $term){
 		$miczit_english=get_term_meta( $term->term_id, 'miczit_english', true );
 		if($miczit_english!=''){
