@@ -5,7 +5,7 @@
  * @package Nisarg
  */
 
- $miczit_theme_ver='v4-0924';
+ $miczit_theme_ver='v4-0926';
 
 
 if ( ! function_exists( 'nisarg_setup' ) ) :
@@ -450,8 +450,14 @@ add_filter('manage_category_custom_column', 'miczit_tag_column_content',10,3);
 
 //Save the new field - EDIT
 function miczit_edit_tag_meta( $term_id, $taxonomy ) {
-	if( isset( $_POST['miczit_english'] ) && '' !== trim($_POST['miczit_english']) ){
-		update_term_meta( $term_id, 'miczit_english', esc_html($_REQUEST['miczit_english']) );
+	$miczit_post_english='';
+	if ( is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX ){
+		$miczit_post_english=$_POST['English'];
+	}else{
+		$miczit_post_english=$_POST['miczit_english'];
+	}
+	if( isset( $miczit_post_english ) && '' !== trim($miczit_post_english) ){
+		update_term_meta( $term_id, 'miczit_english', esc_html($miczit_post_english) );
 	}
 }
 add_action( 'edited_post_tag', 'miczit_edit_tag_meta' ,10,2);
@@ -459,41 +465,38 @@ add_action( 'edited_category', 'miczit_edit_tag_meta' ,10,2 );
 
 //Save the new field - CREATE
 function miczit_create_tag_meta( $term_id, $tt_id , $taxonomy ) {
-	if( isset( $_POST['miczit_english'] ) && '' !== trim($_POST['miczit_english']) ){
-		add_term_meta( $term_id, 'miczit_english', esc_html($_REQUEST['miczit_english']) , true );
+	$miczit_post_english='';
+	if ( is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX ){
+		$miczit_post_english=$_POST['English'];
+	}else{
+		$miczit_post_english=$_POST['miczit_english'];
+	}
+	if( isset( $miczit_post_english ) && '' !== trim($miczit_post_english) ){
+		add_term_meta( $term_id, 'miczit_english', esc_html($miczit_post_english) , true );
 	}
 }
 add_action( 'created_post_tag', 'miczit_create_tag_meta',10,2 );
 add_action( 'created_category', 'miczit_create_tag_meta',10,2 );
 
 //Add custom filed to quick edit
-/*function miczit_tag_quick_edit($column_name,$post_type,$taxonomy){
+function miczit_tag_quick_edit($column_name,$post_type,$taxonomy){
 	if (($column_name != 'miczit_english')||($post_type!='edit-tags')) return;
 	//$miczit_english=get_term_meta( $term->term_id, 'miczit_english', true );
 	?><fieldset>
 	<div class="inline-edit-col">
 		<label>
 		<span class="title"><?php _e('English','nisarg'); ?></span>
-		<span class="input-text-wrap"><input type="text" name="<?php _e('English','nisarg'); ?>" value="<?php echo $taxonomy->term_id ?>" class="ptitle"></span>
+		<span class="input-text-wrap"><input type="text" name="<?php _e('English','nisarg'); ?>" value="" class="ptitle"></span>
 		</label>
 		</div>
 		</fieldset><?php
 }
 add_action('quick_edit_custom_box','miczit_tag_quick_edit',10,3);
 
-function miczit_quick_add_script() { ?>
-    <script type="text/javascript">
-    jQuery(document).ready(function() {
-        jQuery('a.editinline').live('click', function() {
-            var id = inlineEditPost.getId(this);
-            var val = jQuery('#inline_' + id + '_miczit_english').text());
-            jQuery('#miczit_english').text(val);
-        });
-    });
-    </script>
-    <?php
+function miczit_quick_add_script() {
+	wp_enqueue_script( 'miczit-quick-edit-tag', get_bloginfo( 'stylesheet_directory' ) . '/js/miczit-inline-edit-tax.js', array( 'jquery', 'inline-edit-post' ), '', true );
 }
-add_action('admin_head-edit.php','miczit_quick_add_script');*/
+add_action('load-edit-tags.php','miczit_quick_add_script');
 
 //translate the tax if needed
 function miczit_translate_tax($terms, $post_ID, $taxonomy){
@@ -509,3 +512,64 @@ function miczit_translate_tax($terms, $post_ID, $taxonomy){
 }
 add_filter('get_the_terms', 'miczit_translate_tax',10,3);
 add_filter('get_terms', 'miczit_translate_tax',10,3);
+
+if(is_admin()){
+	//photogray metabox
+	function miczit_add_photo_metaboxes() {
+		add_meta_box('miczit_photo_info', 'Photo Info', 'miczit_photo_info_metabox', 'post', 'normal', 'high');
+	}
+	add_action( 'add_meta_boxes', 'miczit_add_photo_metaboxes' );
+
+	function miczit_photo_info_metabox($post){
+		/*if(($post->post_type=='post')&&(get_post_format($post->post_ID)=='image')){
+			echo 'test';
+		}*/
+		global $post;
+		// Noncename needed to verify where the data originated
+		echo '<input type="hidden" name="miczit_photo_info_noncename" id="miczit_photo_info_noncename" value="' .
+		wp_create_nonce( wp_basename(__FILE__) ) . '" />';
+		// Get data if its already been entered
+		$miczit_photo_exif = get_post_meta($post->ID, '_miczit_photo_exif', true);
+		$miczit_photo_data = get_post_meta($post->ID, '_miczit_photo_data', true);
+		// Echo out the field
+		echo 'Exif: <input type="text" name="_miczit_photo_exif" value="' . $miczit_photo_exif  . '" class="widefat" />';
+		echo 'Data: <input type="text" name="_miczit_photo_data" value="' . $miczit_photo_data  . '" class="widefat" />';
+	}
+
+
+	// Save the Metabox Data
+
+	function miczit_save_photo_meta($post_id, $post) {
+		// verify this came from the our screen and with proper authorization,
+		// because save_post can be triggered at other times
+		if ( !wp_verify_nonce( $_POST['miczit_photo_info_noncename'], wp_basename(__FILE__) )) {
+			return $post->ID;
+		}
+
+		// Is the user allowed to edit the post or page?
+		if ( !current_user_can( 'edit_post', $post->ID ))
+			return $post->ID;
+
+		// OK, we're authenticated: we need to find and save the data
+		// We'll put it into an array to make it easier to loop though.
+
+		$photo_meta['_miczit_photo_exif'] = $_POST['_miczit_photo_exif'];
+		$photo_meta['_miczit_photo_data'] = $_POST['_miczit_photo_data'];
+
+		// Add values of $photo_meta as custom fields
+
+		foreach ($photo_meta as $key => $value) { // Cycle through the $events_meta array!
+			if( $post->post_type == 'revision' ) return; // Don't store custom data twice
+			$value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
+			if(get_post_meta($post->ID, $key, FALSE)) { // If the custom field already has a value
+				update_post_meta($post->ID, $key, $value);
+			} else { // If the custom field doesn't have a value
+				add_post_meta($post->ID, $key, $value);
+			}
+			if(!$value) delete_post_meta($post->ID, $key); // Delete if blank
+		}
+
+	}
+
+	add_action('save_post', 'miczit_save_photo_meta', 1, 2); // save the custom fields
+}
