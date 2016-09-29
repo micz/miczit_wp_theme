@@ -115,14 +115,26 @@ function nisarg_customize_register( $wp_customize ) {
         'sanitize_callback' => 'miczit_sanitize_header_title_align_option',
 		'transport'         => 'refresh'
     ));
+    $wp_customize->add_setting('header_title_align_top', array(
+        'default'        => '50%',
+        'sanitize_callback' => 'miczit_sanitize_header_title_align_option',
+		'transport'         => 'refresh'
+    ));
 
 	$wp_customize->add_control( 'text_align_select', array(
-		'label'    => __( 'Text align', 'nisarg' ),
+		'label'    => __( 'Text align left', 'nisarg' ),
 		'section'  => 'header_title_options',
 		'type'     => 'text',
 		'settings'=> 'header_title_align',
 		'priority' => 3,
-	) );
+	));
+	$wp_customize->add_control( 'text_align_select_top', array(
+		'label'    => __( 'Text align top', 'nisarg' ),
+		'section'  => 'header_title_options',
+		'type'     => 'text',
+		'settings'=> 'header_title_align_top',
+		'priority' => 3,
+	));
 
 	/*$wp_customize->add_control( 'text_align_select', array(
 		'label'    => __( 'Text align', 'nisarg' ),
@@ -495,10 +507,12 @@ if(! function_exists('miczit_header_title_align' ) ):
 */
 function miczit_header_title_align(){
 	$header_title_align=get_theme_mod( 'header_title_align');
-if($header_title_align!=''){
+	$header_title_align_top=get_theme_mod( 'header_title_align_top');
+if(($header_title_align!='')||($header_title_align_top!='')){
 ?>
 <style type="text/css">
-   .site-header .site-branding { left: <?php echo $header_title_align; ?>; }
+   <?php if($header_title_align!=''){ ?>.site-header .site-branding { left: <?php echo $header_title_align; ?>; }<?php } ?>
+   <?php if($header_title_align_top!=''){ ?>.site-header .site-branding { top: <?php echo $header_title_align_top; ?>; }<?php } ?>
 </style>
 <?php }
 }

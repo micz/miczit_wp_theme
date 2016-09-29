@@ -464,7 +464,7 @@ add_action( 'edited_post_tag', 'miczit_edit_tag_meta' ,10,2);
 add_action( 'edited_category', 'miczit_edit_tag_meta' ,10,2 );
 
 //Save the new field - CREATE
-function miczit_create_tag_meta( $term_id, $tt_id , $taxonomy ) {
+function miczit_create_tag_meta( $term_id, $tt_id ) {
 	$miczit_post_english='';
 	if ( is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX ){
 		$miczit_post_english=$_POST['English'];
@@ -502,8 +502,9 @@ add_action('load-edit-tags.php','miczit_quick_add_script');
 function miczit_translate_tax($terms, $post_ID, $taxonomy){
 	if(is_admin()) return $terms;
 	if(miczit_get_user_lang()=='it') return $terms;
+	if(is_wp_error($terms)) return $terms;
 	foreach ($terms as $i => $term){
-		$miczit_english=get_term_meta( $term->term_id, 'miczit_english', true );
+		$miczit_english=get_term_meta( $terms[$i]->term_id, 'miczit_english', true );
 		if($miczit_english!=''){
 			$terms[$i]->name=$miczit_english;
 		}
@@ -542,6 +543,7 @@ if(is_admin()){
 	function miczit_save_photo_meta($post_id, $post) {
 		// verify this came from the our screen and with proper authorization,
 		// because save_post can be triggered at other times
+		if(!isset($_POST['miczit_photo_info_noncename']))return;
 		if ( !wp_verify_nonce( $_POST['miczit_photo_info_noncename'], wp_basename(__FILE__) )) {
 			return $post->ID;
 		}
