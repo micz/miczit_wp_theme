@@ -13,13 +13,13 @@
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="row site-info">
-			<?/*?><a href="http://rss.micz.it/micz">feed rss</a>
-			<span class="sep"> | </span><?*/?>
-			<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/2.5/it/">cc</a>
+			<?php/*?><a href="http://rss.micz.it/micz">feed rss</a>
+			<span class="sep"> | </span><?php*/?>
+			<a target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">cc</a>
 			<span class="sep"> | </span>
 			<a target="_blank" href="http://twitter.com/micz">@micz</a>
-			<?/*?><br/>
-			<a href="mailto:m@micz.it">m@micz.it</a><?*/?>
+			<?php/*?><br/>
+			<a href="mailto:m@micz.it">m@micz.it</a><?php*/?>
 <br/>proudly powered by <a target="_blank" href="http://wordpress.org/">WordPress</a><br/><img alt="wordpress.org" title="wordpress.org" src="<?=  get_stylesheet_directory_uri().'/images/wordpress.png'; ?>" border="0"/>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->

@@ -217,7 +217,7 @@ if ( ! function_exists( 'miczit_entry_footer' ) ) :
 /**
  * Prints HTML with meta information for the categories, tags and comments.
  */
-function miczit_entry_footer() {
+function miczit_entry_footer($posted_on_only=false) {
 
 	/*if(is_single())
 		echo '<hr>';*/
@@ -225,22 +225,27 @@ function miczit_entry_footer() {
  	//if(!is_home() && !is_search() && !is_archive()){
 
 			if ( 'post' == get_post_type() ) {
-				/* translators: used between list items, there is a space after the comma */
-				$categories_list = get_the_category_list( esc_html__( ', ', 'nisarg' ) );
-				echo '<div class="miczit-hr"></div><div class="row">';
-				if ( $categories_list && nisarg_categorized_blog() ) {
-					printf( '<div class="col-md-3 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i>
-		 ' . esc_html__( '%1$s', 'nisarg' ) . '</span></div>', $categories_list ); // WPCS: XSS OK.
-				}
-				else{
-					echo '<div class="col-md-3 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i></span></div>';
-				}
+				if(!$posted_on_only){
+					/* translators: used between list items, there is a space after the comma */
+					$categories_list = get_the_category_list( esc_html__( ', ', 'nisarg' ) );
+					echo '<div class="miczit-hr"></div><div class="row">';
+					if ( $categories_list && nisarg_categorized_blog() ) {
+						printf( '<div class="col-md-3 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i>
+			 ' . esc_html__( '%1$s', 'nisarg' ) . '</span></div>', $categories_list ); // WPCS: XSS OK.
+					}
+					else{
+						echo '<div class="col-md-3 cattegories"><span class="cat-links"><i class="fa fa-folder-open"></i></span></div>';
+					}
 
 
-				$tags_list = get_the_tag_list( '', esc_html__( ', ', 'nisarg' ) );
-				if ( $tags_list ) {
-					printf( '<div class="col-md-5 tags"><span class="tags-links"><i class="fa fa-tags"></i>' . esc_html__( ' %1$s', 'nisarg' ) . '</span></div>', $tags_list ); // WPCS: XSS OK.
+					$tags_list = get_the_tag_list( '', esc_html__( ', ', 'nisarg' ) );
+					if ( $tags_list ) {
+						printf( '<div class="col-md-5 tags"><span class="tags-links"><i class="fa fa-tags"></i>' . esc_html__( ' %1$s', 'nisarg' ) . '</span></div>', $tags_list ); // WPCS: XSS OK.
+					}else{
+						echo '<div class="col-md-5 tags"></div>';
+					}
 				}else{
+					echo '<div class="col-md-3 cattegories"></div>';
 					echo '<div class="col-md-5 tags"></div>';
 				}
 

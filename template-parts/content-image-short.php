@@ -15,7 +15,7 @@
 	<?php miczit_featured_image_display('miczit-small-width'); ?>
 			<div class="entry-content-miczit-small-width">
 				<?php
-					miczit_posted_on();
+					//miczit_posted_on();
 					//print the post meta if not blank
 					$miczit_photo_exif = trim(get_post_meta($post->ID, '_miczit_photo_exif', true));
 					$miczit_photo_data = trim(get_post_meta($post->ID, '_miczit_photo_data', true));

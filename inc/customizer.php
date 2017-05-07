@@ -118,7 +118,22 @@ function nisarg_customize_register( $wp_customize ) {
     $wp_customize->add_setting('header_title_align_top', array(
         'default'        => '50%',
         'sanitize_callback' => 'miczit_sanitize_header_title_align_option',
-		'transport'         => 'refresh'
+				'transport'         => 'refresh'
+    ));
+		$wp_customize->add_setting('home_title_align', array(
+	        'default'        => '50%',
+	        'sanitize_callback' => 'miczit_sanitize_home_title_link_align_option',
+			'transport'         => 'refresh'
+	    ));
+	    $wp_customize->add_setting('home_title_align_top', array(
+	        'default'        => '50%',
+	        'sanitize_callback' => 'miczit_sanitize_home_title_link_align_option',
+					'transport'         => 'refresh'
+	    ));
+		$wp_customize->add_setting('home_title_link_align_top', array(
+        'default'        => '50%',
+        'sanitize_callback' => 'miczit_sanitize_home_title_link_align_option',
+				'transport'         => 'refresh'
     ));
 
 	$wp_customize->add_control( 'text_align_select', array(
@@ -133,6 +148,27 @@ function nisarg_customize_register( $wp_customize ) {
 		'section'  => 'header_title_options',
 		'type'     => 'text',
 		'settings'=> 'header_title_align_top',
+		'priority' => 3,
+	));
+	$wp_customize->add_control( 'home_text_align_select', array(
+		'label'    => __( 'Home text align left', 'nisarg' ),
+		'section'  => 'header_title_options',
+		'type'     => 'text',
+		'settings'=> 'home_title_align',
+		'priority' => 3,
+	));
+	$wp_customize->add_control( 'home_text_align_select_top', array(
+		'label'    => __( 'Home text align top', 'nisarg' ),
+		'section'  => 'header_title_options',
+		'type'     => 'text',
+		'settings'=> 'home_title_align_top',
+		'priority' => 3,
+	));
+	$wp_customize->add_control( 'link_align_select_top', array(
+		'label'    => __( 'Link align top', 'nisarg' ),
+		'section'  => 'header_title_options',
+		'type'     => 'text',
+		'settings'=> 'home_title_link_align_top',
 		'priority' => 3,
 	));
 
@@ -308,16 +344,16 @@ function miczit_sanitize_header_title_align_option( $value ) {	/*TODO*/
 	return $value;
 }
 
-/*function miczit_sanitize_header_title_align_option( $value ) {
-	$choices = array('right','center','left');
+endif;
 
-	if ( ! array_key_exists( $value, $choices ) ) {
-		$value = 'center';
-	}
+if ( ! function_exists( 'miczit_sanitize_home_title_link_align_option' ) ) :
 
+function miczit_sanitize_home_title_link_align_option( $value ) {	/*TODO*/
 	return $value;
-}*/
-endif; // miczit_sanitize_header_title_align_option
+}
+
+endif; // miczit_sanitize_home_title_link_align_option
+
 /**
  * Enqueues front-end CSS for color scheme.
  *
@@ -506,13 +542,20 @@ if(! function_exists('miczit_header_title_align' ) ):
 * Set the header title alignment
 */
 function miczit_header_title_align(){
-	$header_title_align=get_theme_mod( 'header_title_align');
-	$header_title_align_top=get_theme_mod( 'header_title_align_top');
-if(($header_title_align!='')||($header_title_align_top!='')){
+	if(!is_front_page()){
+		$header_title_align=get_theme_mod( 'header_title_align');
+		$header_title_align_top=get_theme_mod( 'header_title_align_top');
+	}else{
+		$header_title_align=get_theme_mod( 'home_title_align');
+		$header_title_align_top=get_theme_mod( 'home_title_align_top');
+	}
+	$home_title_link_align_top=get_theme_mod( 'home_title_link_align_top');
+if(($header_title_align!='')||($header_title_align_top!='')||($home_title_link_align_top!='')){
 ?>
 <style type="text/css">
    <?php if($header_title_align!=''){ ?>.site-header .site-branding { left: <?php echo $header_title_align; ?>; }<?php } ?>
    <?php if($header_title_align_top!=''){ ?>.site-header .site-branding { top: <?php echo $header_title_align_top; ?>; }<?php } ?>
+	 <?php if($home_title_link_align_top!=''){?>.site-header .micz_header_link { top: <?php echo $home_title_link_align_top; ?>; }<?php } ?>
 </style>
 <?php }
 }

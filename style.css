@@ -1,10 +1,10 @@
 /*
-Theme Name: Micz.it (v4)
+Theme Name: Micz.it (v4.1.0)
 Theme URI: http://micz.it/
 Author: Mic (Original work from Theme Nisarg by Falguni Desai)
 Author URI: http://micz.it/
 Description: The Mic's theme (v4). Original work from Theme Nisarg by Falguni Desai (http://falgunidesai.com/work/nisarg-a-wordpress-theme/).
-Version: 4.0.0
+Version: 4.1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: pink,orange,blue,green,yellow, gray, white,black,light,two-columns, right-sidebar, responsive-layout, theme-options, custom-background, custom-header, custom-colors, custom-menu, featured-images,  post-formats, sticky-post, translation-ready, rtl-language-support,threaded-comments
@@ -632,10 +632,10 @@ color: #000000;
     background: #b0bec5;
     position: relative;
     width: 100%;
-    margin-bottom: 2em;
+    margin-bottom: 0em;
     overflow: hidden;
     min-height: 200px;
-    opacity: 0.9;
+    opacity: 0.92;
 }
 
 .site-header .site-branding {
@@ -784,6 +784,7 @@ color: #000000;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin-top: 2em;
 }
 
 .entry-title{
@@ -1384,7 +1385,7 @@ color: #000000;
         position: relative;
         width: 100%;
         min-height: 170px;
-        margin-bottom: 2em;
+        margin-bottom: 0em;
     }
 
     .site-title {
@@ -1412,13 +1413,18 @@ color: #000000;
     .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
         border-top: none;
     }
+
 }
 @media (max-width: 359px) {
     .site-header{
         position: relative;
         width: 100%;
         min-height: 100px;
-        margin-bottom: 1.5em;
+        margin-bottom: 0em;
+    }
+
+    .entry-header{
+      margin-top: 1.5em;
     }
 
     .site-title {
@@ -1438,6 +1444,7 @@ color: #000000;
         margin-top: 1px;
         margin-bottom: 2px;
     }
+
 }
 
 
@@ -1702,3 +1709,37 @@ margin:0 auto;
 time.entry-date{text-transform: capitalize;}
 
 article.post-content{position:relative;}
+
+/* Static home style
+*/
+.micz_header_link{
+  color: #fff;
+  position:absolute;
+  top:50%;
+  left:100%;
+  margin-left:2em;
+  letter-spacing:3px;
+  text-shadow: rgba(255,255,255,.1) -1px -1px 1px, rgba(0,0,0,.5) 1px 1px 1px;
+  white-space: nowrap;
+}
+.micz_header_link ul li a, .micz_header_link ul li a:visited{color: #fff;}
+.micz_header_link ul{list-style:none;margin:0;padding:0;}
+.micz_header_link ul li{padding-top:0.7em;}
+
+@media (max-width: 767px) {
+  .micz_header_link {
+    margin-left:1em;
+    letter-spacing:1px;
+    font-size: 14px;
+  }
+  .micz_header_link ul li{padding-top:0.2em;}
+}
+
+@media (max-width: 359px) {
+  .micz_header_link {
+    margin-left:1em;
+    letter-spacing:1px;
+    font-size: 14px;
+  }
+  .micz_header_link ul li{padding-top:0.1em;}
+}

@@ -5,6 +5,11 @@
  * @package Nisarg
  */
 
+header("HTTP/1.1 301 Moved Permanently");
+header("Location: ".get_bloginfo('url'));
+exit();
+
+/*
 get_header(); ?>
 		<div class="container">
    			<div class="row">
@@ -32,4 +37,4 @@ get_header(); ?>
 
 			</div> <!--.row-->
         </div><!--.container-->
-		<?php get_footer(); ?>
+		<?php get_footer(); */ ?>

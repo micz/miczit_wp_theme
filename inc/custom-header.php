@@ -53,6 +53,18 @@ function nisarg_custom_header_setup() {
 }
 add_action( 'after_setup_theme', 'nisarg_custom_header_setup' );
 
+
+if ( ! function_exists( 'miczit_get_image_info' ) ) :
+
+function miczit_get_image_info($thumb_id){	//returns array (url,width,height)
+	/*$thumb_meta=wp_get_attachment_metadata($thumb_id);
+	return  _wp_get_image_size_from_meta('full',$thumb_meta);*/
+	return wp_get_attachment_image_src($thumb_id,'full');
+}
+
+endif;
+
+
 if ( ! function_exists( 'nisarg_header_style' ) ) :
 /**
  * Styles the header image and text displayed on the blog
@@ -75,19 +87,31 @@ function nisarg_header_style() {
 		if ( ! empty( $header_image ) ) :
 			$header_width = get_custom_header()->width;
 			$header_height = get_custom_header()->height;
-			$header_height1 = ($header_height / $header_width * 1600);
-			$header_height2 = ($header_height / $header_width * 768);
-			$header_height3 = ($header_height / $header_width * 360);
 
+			$miczit_header_image=get_header_image();
+			if(is_front_page()){
+				$image_info = miczit_get_image_info(get_post_thumbnail_id());
+				$miczit_header_image=$image_info[0];
+				$header_width = $image_info[1];
+				$header_height = $image_info[2];
+			}
+
+			$header_height1 = ($header_height / $header_width * 1600);
+			$header_height2 = ($header_height / $header_width * 1024);
+			$header_height3 = ($header_height / $header_width * 768);
+			$header_height4 = ($header_height / $header_width * 360);
 	?>
 				.site-header {
-					background: url(<?php header_image(); ?>) no-repeat scroll top;
+					background: url(<?php echo $miczit_header_image ?>) no-repeat scroll top;
 					<?php if($header_height1 > 200){ ?>
 						background-size: 1600px auto;
-						height: <?php echo get_custom_header()->height; ?>px;
+						height: <?php echo $header_height; ?>px;
 					<?php }else{ ?>
 						background-size: 1600px 200px;
 						height: 200px
+					<?php }
+					if(is_front_page()){ ?>
+						background-color:#111;
 					<?php } ?>
 				}
 
@@ -105,9 +129,9 @@ function nisarg_header_style() {
 
 				@media (max-width: 767px) {
 					.site-header {
-						<?php if($header_height2 > 170){ ?>
+						<?php if($header_height3 > 170){ ?>
 							background-size: 768px auto;
-							height: <?php echo $header_height2;?>px;
+							height: <?php echo $header_height3;?>px;
 						<?php }else{ ?>
 							background-size: 768px 170px;
 							height: 170px;
@@ -116,11 +140,11 @@ function nisarg_header_style() {
 				}
 				@media (max-width: 359px) {
 					.site-header {
-						<?php if($header_height3 > 80){ ?>
-							background-size: 768px auto;
-							height: <?php echo $header_height3;?>px;
+						<?php if($header_height4 > 80){ ?>
+							background-size: 359px auto;
+							height: <?php echo $header_height4;?>px;
 						<?php }else{ ?>
-							background-size: 768px 80px;
+							background-size: 359px 80px;
 							height: 80px;
 						<?php } ?>
 

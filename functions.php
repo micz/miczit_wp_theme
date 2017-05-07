@@ -5,7 +5,7 @@
  * @package Nisarg
  */
 
- $miczit_theme_ver='v4-0926';
+ $miczit_theme_ver='v4-170507';
 
 
 if ( ! function_exists( 'nisarg_setup' ) ) :
@@ -59,8 +59,10 @@ function nisarg_setup() {
 	function register_nisarg_menus() {
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'primary' => esc_html__( 'Top Primary Menu', 'nisarg' ),
+      'primary' => esc_html__( 'Top Primary Menu', 'nisarg' ),
 			'primary_en' => esc_html__( 'Top Primary Menu EN', 'nisarg' ),
+      'primary_home' => esc_html__( 'Home Primary Menu', 'nisarg' ),
+			'primary_home_en' => esc_html__( 'Home Primary Menu EN', 'nisarg' ),
 		) );
 	}
 
@@ -504,6 +506,7 @@ function miczit_translate_tax($terms, $post_ID, $taxonomy){
 	if(miczit_get_user_lang()=='it') return $terms;
 	if(is_wp_error($terms)) return $terms;
 	foreach ($terms as $i => $term){
+		if(!is_object ($terms[$i]))break;
 		$miczit_english=get_term_meta( $terms[$i]->term_id, 'miczit_english', true );
 		if($miczit_english!=''){
 			$terms[$i]->name=$miczit_english;

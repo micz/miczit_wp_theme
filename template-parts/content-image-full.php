@@ -59,5 +59,5 @@
 			</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php miczit_entry_footer(); ?>
+		<?php// miczit_entry_footer(true); ?>
 	</footer><!-- .entry-footer -->

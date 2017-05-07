@@ -39,7 +39,25 @@ if ( ! function_exists( 'nisarg_header_menu' ) ) :
         'walker'            => new wp_bootstrap_navwalker()
       ));
     } /* end header menu */
-    endif;
+endif;
+
+if ( ! function_exists( 'miczit_home_menu' ) ) :
+    /**
+     * Header menu (should you choose to use one)
+     */
+    function miczit_home_menu($theme_location='primary_home') {
+      // display the WordPress Custom Menu if available
+      wp_nav_menu(array(
+        'theme_location'    => $theme_location,
+        'depth'             => 2,
+        'container'         => 'div',
+        'container_class'   => 'micz_header_link',
+        'menu_class'        => 'micz_home_link',
+        'fallback_cb'       => 'wp_bootstrap_navwalker::fallback',
+        'walker'            => new wp_bootstrap_navwalker()
+      ));
+    } /* end header menu */
+endif;
 
 
 
@@ -53,5 +71,3 @@ function  nisarg_add_top_level_menu_url( $atts, $item, $args ){
   return $atts;
 }
 add_filter( 'nav_menu_link_attributes', 'nisarg_add_top_level_menu_url', 99, 3 );
-
-

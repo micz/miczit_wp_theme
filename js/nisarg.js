@@ -47,8 +47,8 @@
  * Makes the site title scrolling with fade
  */
 (function($) {
-    let title_txt_div = $('.site-branding');
-    let title_img_div = $('.site-header');
+    let title_txt_div = $('.site-branding.nohome');
+    let title_img_div = $('.site-header.nohome');
     $(window).on('scroll', function() {
         let st = $(this).scrollTop();
         let speed = 0.5;
