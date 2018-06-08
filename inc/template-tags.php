@@ -348,7 +348,7 @@ function nisarg_featured_image_disaplay(){
 *  Display featured image of the post
 **/
 
-function miczit_featured_image_display($img_size){
+function miczit_featured_image_display($img_size,$do_div=true){
 	if ( has_post_thumbnail() && ! post_password_required() && ! is_attachment() ) {  // check if the post has a Post Thumbnail assigned to it.
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 		$attachment_url_html=get_the_post_thumbnail(null,$img_size,'');
@@ -359,12 +359,12 @@ function miczit_featured_image_display($img_size){
 											get_the_post_thumbnail(null,$img_size,'')
 									);
 		}
-        echo '<div class="featured-image '.$img_size.'">';
+        if($do_div)echo '<div class="featured-image '.$img_size.'">';
         if ( function_exists('slb_activate') ){
     		$attachment_url_html = slb_activate($attachment_url_html);
 		}
         echo $attachment_url_html;
-        echo '</div>';
+        if($do_div)echo '</div>';
     }
 }
 

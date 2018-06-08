@@ -1698,14 +1698,14 @@ margin-bottom:0;
 #secondary .widget_fotografia_miczit li {
 padding: 0.5em 0 0;
 }
-.miczit-full-width img{margin:0 auto;width:795px;}
-.miczit-full-width{padding:0;}
+.miczit-full-width img{margin:0 auto;max-width:795px;}
+.miczit-full-width{padding:0;width:fit-content;margin:0 auto;}
 .miczit-fotografia-content{
 padding:0 0.5em;
 max-width:795px;
 margin:0 auto;
 }
-.miczit-fotografia-content em, .entry-content-miczit-small-width em{font-size: 85%; color:#727d7a;}
+.miczit-fotografia-content em, .entry-content-miczit-small-width em, .featured-image em{font-size: 85%; color:#727d7a;}
 time.entry-date{text-transform: capitalize;}
 
 article.post-content{position:relative;}

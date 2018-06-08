@@ -12,7 +12,14 @@
 		printf( '<span class="sticky-post">%s</span>', __( 'Featured', 'nisarg' ) );
 	} ?>
 	<?php if(is_single()){miczit_get_i18n_page($post->ID);} ?>
-	<?php miczit_featured_image_display('miczit-full-width'); ?>
+	<div class="featured-image miczit-full-width">
+	<?php miczit_featured_image_display('miczit-full-width',false);
+	$miczit_photo_exif = trim(get_post_meta($post->ID, '_miczit_photo_exif', true));
+		if($miczit_photo_exif!=''){
+			?><p style="text-align: right;"><em><?php echo $miczit_photo_exif;?></em></p><?php
+		}
+	 ?>
+	</div>
 
 	<header class="entry-header-fotografia">
 
@@ -35,11 +42,7 @@
 			<div class="entry-content miczit-fotografia-content">
 				<?php
 					//print the post meta if not blank
-					$miczit_photo_exif = trim(get_post_meta($post->ID, '_miczit_photo_exif', true));
 					$miczit_photo_data = trim(get_post_meta($post->ID, '_miczit_photo_data', true));
-					if($miczit_photo_exif!=''){
-						?><p style="text-align: right;"><em><?php echo $miczit_photo_exif;?></em></p><?php
-					}
 					if(($miczit_photo_exif!='')&&($miczit_photo_data!='')){
 						?><p style="text-align: center;"><strong><?php the_title();?></strong><?php
 					}

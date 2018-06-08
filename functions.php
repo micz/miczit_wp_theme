@@ -5,7 +5,7 @@
  * @package Nisarg
  */
 
- $miczit_theme_ver='v4-170507';
+ $miczit_theme_ver='v4-180608';
 
 
 if ( ! function_exists( 'nisarg_setup' ) ) :
